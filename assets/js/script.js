@@ -8,20 +8,19 @@ const apiKey = {
 
 function getSongData(search = 'metallica') {
     let TasteDiveApi = `https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?q=${search}&k=${apiKey.TasteDive}`
+    let napsterApi = "https://api.napster.com/v2.2/artists/top";
+
+    const options = {headers: {apikey: apiKey.Napster}};
+
     fetch(TasteDiveApi)
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (data) {
-                    TasteDiveData = data.Similar.Results
-                    console.log(TasteDiveData);
-                });
-            } else {
-                return("Error: " + response.statusText);
-            };
-        })
-        .catch(function (error) {
-            return("Unable to find search result");
-        });
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
+
+    fetch(napsterApi, options)
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
 };
 
 getSongData()
