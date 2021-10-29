@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var apiKey = "&units=imperial&appid=7fc2d608ebf66e206f3145c2c83cb073";
 var apiUrl5 = "https://api.openweathermap.org/data/2.5/forecast?q=";
 var apiUrl1 = "https://api.openweathermap.org/data/2.5/weather?q=";
@@ -128,3 +129,31 @@ function testLyricApi() {
 //     var nameBtn = $('<button class="cityBtn mb-3 w-100" type="submit"></button>').text(localStorage.getItem(keyId));
 //     $(".city-container").append(nameBtn);
 // }
+=======
+let TasteDiveData;
+let NapsterData;
+let search;
+const apiKey = {
+    TasteDive: '426208-MusicRec-QH74RS8V',
+    Napster: 'MDc1YWUxMWUtYjY0NS00ZGI5LTgxNzEtZjRmMWY0NGQ3Nzgx'
+}
+
+function getSongData(search = 'metallica') {
+    let TasteDiveApi = `https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?q=${search}&k=${apiKey.TasteDive}`
+    let napsterApi = "https://api.napster.com/v2.2/artists/top";
+
+    const options = {headers: {apikey: apiKey.Napster}};
+
+    fetch(TasteDiveApi)
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
+
+    fetch(napsterApi, options)
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
+};
+
+getSongData()
+>>>>>>> dev
