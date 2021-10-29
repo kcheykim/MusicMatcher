@@ -1,4 +1,4 @@
-*{
+body {
     background-color:black ;
 }
 
@@ -7,6 +7,26 @@
     color: white;
 }
 
-/* #request {
-    background-color: #1db954
-} */
+.button {
+    background-color: #1db954;
+    color: white !important;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.rightside {
+    background: linear-gradient(#212121, #141414, black);
+    color: white;
+}
+
+.righty {
+    background: transparent;
+}
+
+.leftside {
+    background-color: black;
+    color: white;
+}
+
+footer {
+    color: #1db954;
+}
