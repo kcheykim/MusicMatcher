@@ -8,8 +8,9 @@ const apiKey = {
 }
 
 function getSongData(search = 'metallica') {
-    let TasteDiveApi = `https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?q=${search}&k=${apiKey.TasteDive}`
-    let napsterApi = "https://api.napster.com/v2.2/artists/top";
+    const proxy ='https://cors-anywhere.herokuapp.com/'
+    const TasteDiveApi = `https://tastedive.com/api/similar?q=${search}&k=${apiKey.TasteDive}`
+    const napsterApi = "https://api.napster.com/v2.2/artists/top";
 
     const options = {headers: {apikey: apiKey.Napster}};
 
