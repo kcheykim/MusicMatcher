@@ -16,7 +16,6 @@
     />
     <link rel="stylesheet" href="./assets/css/styles.css" />
     <title>Music Matcher</title>
-<<<<<<< HEAD
 </head>
 
 <body>
@@ -24,9 +23,6 @@
         <h1 class="title">Music Matcher</h1>`
     </header>
 
-=======
-  </head>
->>>>>>> e103c059ca34e043b67891ed6021080663b05edd
 
   <body>
     <main>
@@ -38,7 +34,8 @@
             </h1>
           </header>
           <div class="tile is-parent is-vertical">
-            <article class="tile is-child notification leftside">
+            <!-- added id 'request-song' for appending song -->
+            <article class="tile is-child notification leftside" id="request-song">
               <h2 class="title" id="request">Recent Request</h2>
               <p class="subtitle">Song1-button</p>
               <p class="subtitle">Song2-button</p>
@@ -55,9 +52,11 @@
                 class="input is-round is-focused is-normal"
                 type="text"
                 placeholder="e.g. Perfect"
+                id="artist-input"
               />
               <div class="searchBtn">
-                <button class="button is-medium mt-1">
+                <!-- added id 'search-artist' for enabling addEventListener -->
+                <button class="button is-medium mt-1" id="search-artist">
                   Search
                 </button>
               </div>
@@ -67,7 +66,8 @@
         <div class="column is-9 rightside">
           <div class="tile is-parent">
             <article class="tile is-child notification righty">
-              <div class="content">
+              <!-- added id 'song-info' for appending artist -->
+              <div class="content" id="song-info">
                 <h2 class="title" id="song">Song Title</h2>
                 <p class="subtitle">Artist Info</p>
                 <figure class="image is-4by3">
@@ -82,7 +82,8 @@
           </div>
 
           <div class="tile is-parent">
-            <article class="tile is-child notification righty">
+            <!-- added id 'lyrics-p' for appending lyrics -->
+            <article class="tile is-child notification righty" id="lyrics-p">
               <h2 class="title" id="lyric">Lyric</h2>
               <p class="subtitle">Line A</p>
               <p class="subtitle">Line B</p>
@@ -108,6 +109,6 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/script-RL.js"></script>
   </body>
 </html>
