@@ -1,4 +1,4 @@
-var apiUrl = ''
+var apiUrl = ' https://https://api.discogs.com/'
 var apiKey = ''
 
 //element for appending songs
@@ -10,28 +10,30 @@ var lyricsP = document.getElementById("lyrics-p")
 
 //submit button element for adding click event for our search
 var submitBtnEl = document.getElementById("search-artist");
-
+//target searchBtn's parent element of search button for appending error message below 'search button'
 var SearchBtnEl = document.getElementsByClassName("searchBtn")
 
-var input = document.getElementById("artist-input");
-var searchResults = input.value;
 
 
 
 
-function getSong(event) {
-    event.preventDefaul;
-    input = document.getElementById("artist-input").val
-    fetch(apiUrl + input + apiKey)
-    .then(function(response) {
+
+function getArtist(event) {
+    event.preventDefault();
+    if (submitBtnEl) {
+        let artist = document.getElementById("artist-input").val
+
+        // https://https://api.discogs.com/artists/1/releases?page=2&per_page=75
+        fetch(apiUrl + input)
+        .then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
                 var keyId = data.dt;
                 localStorage.setItem(keyId, songName);
                 
-                // var song1 = $('<button class="song1" data-id="song1"></button>').text(songName);
+                // // var song1 = $('<button class="song1" data-id="song1"></button>').text(songName);
                 var song1 = document.createElement("button")
-                song1.innerText = ""
+                // song1.innerText = ""
                 song1.setAttribute('id', 'song1')
                 requestSongEl.appendChild(song1)
 
@@ -40,11 +42,11 @@ function getSong(event) {
                 var artist;
                 var artistEl = document.createElement("h2")
                 artistEl.innerText = ""
-                artistEl.setAttribute()
+                artistEl.setAttribute('id', 'artist-name')
                 artistInfo.appendChild(artist);
 
                 //fetch lyrics
-                // 
+
                 var lyricsEl = document.createElement("p")                
                 lyricsEl.innerText = ""
                 lyricsEl.setAttribute('id','fetched-lyrics')
@@ -52,8 +54,7 @@ function getSong(event) {
 
             });
         } else {
-            // var errorMessage = $('<p class ="is-info"><p/>').text("Please seach again");
-            // $(".is-info").append(errorMessage);
+            
             var errorMessage = document.createElement("p")
             errorMessage.innerText = "Please seach again"
             errorMessage.setAttribute('id' , 'error-message')
@@ -62,9 +63,10 @@ function getSong(event) {
 
         }
     });
+    }
 }
 
-submitBtnEl.addEventListener('submit', getSong);
+submitBtnEl.addEventListener('click', getArtist);
 
 
 let TasteDiveData;
