@@ -24,9 +24,10 @@ function getLyric() {
             .then(function(response) {
                 if (response.ok) {
                     response.json().then(function(data) {
-                        console.log(data);
+                        console.log(data.lyrics);
                         var lyrics = document.createElement("p");
-                        lyrics.style.color = "white";
+                        lyrics.style.color = "yellow";
+                        lyrics.style.fontSize = "20px";
                         lyrics.innerHTML = data.lyrics;
                         lyricEl.append(lyrics);
                     });
