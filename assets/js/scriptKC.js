@@ -12,12 +12,15 @@ submitBtnEl.addEventListener("click", getLyric);
 function getLyric() {
 
     let lyricEl = document.getElementById("lyrics-p");
+    $("#lyrics-p").empty();
+
+    //if (lyricEl.hasChildNodes()) { lyricEl.removeChild(lyricEl.childNodes[0]); }
+    //lyricEl.removeChild();
     debugger;
     if (submitBtnEl) {
         let artist = document.getElementById("artist-input").value;
         alert(artist);
 
-        // https://api.lyrics.ovh/v1/{artist}/{song}/
         let song = prompt("Please type in a song: ");
         let lyricApi = "https://api.lyrics.ovh/v1/";
         fetch(lyricApi + artist + "/" + song)
@@ -25,11 +28,12 @@ function getLyric() {
                 if (response.ok) {
                     response.json().then(function(data) {
                         console.log(data.lyrics);
+                        var parseLyric = data.lyrics.split("\r\n")[1];
                         var lyrics = document.createElement("p");
                         lyrics.style.color = "yellow";
-                        lyrics.style.fontSize = "20px";
-                        lyrics.innerHTML = data.lyrics;
-                        lyricEl.append(lyrics);
+                        lyrics.style.fontSize = "15px";
+                        lyrics.innerHTML = parseLyric;
+                        lyricEl.appendChild(lyrics);
                     });
                 } else {
                     var errorMessage = document.createElement("p");
