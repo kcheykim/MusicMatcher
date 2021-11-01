@@ -5,14 +5,13 @@
 // // var searchResults = input.value;
 
 
-
-
-
 var submitBtnEl = document.querySelector("#search-artist");
 submitBtnEl.addEventListener("click", getLyric);
 // $("#search-artist").on("click", getLyric)
 
 function getLyric() {
+
+    let lyricEl = document.getElementById("lyrics-p");
     debugger;
     if (submitBtnEl) {
         let artist = document.getElementById("artist-input").value;
@@ -26,19 +25,20 @@ function getLyric() {
                 if (response.ok) {
                     response.json().then(function(data) {
                         console.log(data);
+                        var lyrics = document.createElement("p");
+                        lyrics.style.color = "white";
+                        lyrics.innerHTML = data.lyrics;
+                        lyricEl.append(lyrics);
                     });
                 } else {
                     var errorMessage = document.createElement("p");
                     errorMessage.innerHTML = "Invalid: No such artist with this song."
-                    var lyricEl = document.getElementById("lyrics-p");
                     lyricEl.append(errorMessage);
                 }
             });
     }
 }
-debugger;
 
-debugger;
 
 // function getSong(songName) {
 //     fetch(apiUrl + songName + searchResults)
