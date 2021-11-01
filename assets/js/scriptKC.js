@@ -29,11 +29,24 @@ function getLyric() {
                     response.json().then(function(data) {
                         console.log(data.lyrics);
                         var parseLyric = data.lyrics.split("\r\n")[1];
-                        var lyrics = document.createElement("p");
-                        lyrics.style.color = "yellow";
-                        lyrics.style.fontSize = "15px";
-                        lyrics.innerHTML = parseLyric;
-                        lyricEl.appendChild(lyrics);
+                        parseLyric = replaceStr(parseLyric, "\n\n\n", "|");
+                        parseLyric = replaceStr(parseLyric, "\n\n", "|");
+                        parseLyric = replaceStr(parseLyric, "\n", "|");
+
+
+                        const newLyric = parseLyric.split("|");
+                        debugger;
+                        console.log(newLyric);
+                        debugger;
+                        for (var i = 0; i < newLyric.length; i++) {
+                            var lyrics = document.createElement("p");
+                            lyrics.style.color = "yellow";
+                            lyrics.style.fontSize = "15px";
+                            lyrics.innerHTML = newLyric[i];
+                            lyricEl.appendChild(lyrics);
+
+                        }
+
                     });
                 } else {
                     var errorMessage = document.createElement("p");
@@ -42,6 +55,10 @@ function getLyric() {
                 }
             });
     }
+}
+
+function replaceStr(string, unwanted, replace) {
+    return string.split(unwanted).join(replace);
 }
 
 
