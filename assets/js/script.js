@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 var apiUrl = ''
 var apiKey = ''
 var submitBtnEl = $('.searchBtn');
@@ -32,7 +31,6 @@ function getSong(songName) {
 }
 
 submitBtnEl.on('click', getSong);
-=======
 let TasteDiveData;
 let NapsterData;
 let search;
@@ -59,4 +57,3 @@ function getSongData(search = 'metallica') {
 };
 
 getSongData()
->>>>>>> e103c059ca34e043b67891ed6021080663b05edd
