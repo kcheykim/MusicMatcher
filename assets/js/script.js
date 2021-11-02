@@ -1,59 +1,57 @@
-var apiUrl = ''
-var apiKey = ''
-var submitBtnEl = $('.searchBtn');
-var input = $('.input')
-var searchResults = input.value;
+//submit button element for adding click event for our search
+let searchEl = document.getElementById("search-artist");
 
 
-
-function getSong(songName) {
-    fetch(apiUrl + songName + searchResults)
-    .then(function(response) {
-        if (response.ok) {
-            response.json().then(function(data) {
-                var keyId = data.dt;
-                localStorage.setItem(keyId, songName);
-                var song1 = $('<button class="song1" data-id="song1"></button>').text(songName);
-                $(".recent-search").append(song1);
-
-                var artist = $('<h2 class="artist"></h2>').text("")
-                $(".song-info").append(artist);
-
-                var lyrics = $('<p class="lyrics"></p>').text("")
-                $("#lyrics").append(lyrics);
-
-            });
-        } else {
-            var errorMessage = $('<p class ="is-info"><p/>').text("Please seach again");
-            $(".is-info").append(errorMessage);
-        }
-    });
+function getArtist(event) {
+    event.preventDefault();
+    if (searchEl) {
+        let artist = document.getElementById("artist-input").value
+            if (!artist) {
+                return;
+            }
+            _getSimilarArtist(artist);
+    }
 }
 
-submitBtnEl.on('click', getSong);
-let TasteDiveData;
-let NapsterData;
-let search;
-const apiKey = {
-    TasteDive: '426208-MusicRec-QH74RS8V',
-    Napster: 'MDc1YWUxMWUtYjY0NS00ZGI5LTgxNzEtZjRmMWY0NGQ3Nzgx'
+searchEl.addEventListener('click', getArtist);
+
+
+
+//-------------------------------------------------------------------------------//
+
+//for loop -> button1-5
+
+let top1 = document.getElementById("button1")
+let top2 = document.getElementById("button2")
+let top3 = document.getElementById("button3")
+let top4 = document.getElementById("button4")
+let top5 = document.getElementById("button5")
+
+top1.addEventListener('click', )
+top2.addEventListener('click', )
+top3.addEventListener('click', )
+top4.addEventListener('click', )
+top5.addEventListener('click', )
+
+
+//-------------------------------------------------------------------------------//
+
+const lastFmKey = 'f50b0e7f874bf3ca9a40af2dc2697097'
+
+const _getSimilarArtist = async (search) => {
+    const lastFM = `https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${search}&api_key=${lastFmKey}&format=json&limit=5`
+    const result = await fetch(lastFM)
+    const data = await result.json();
+    return data.similarartists.artist
 }
 
-function getSongData(search = 'metallica') {
-    let TasteDiveApi = `https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?q=${search}&k=${apiKey.TasteDive}`
-    let napsterApi = "https://api.napster.com/v2.2/artists/top";
+const _getTopTracks = async (artistName) => {
+    const lastFM = `https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${artistName}&api_key=${lastFmKey}&format=json&limit=5`
+    const result = await fetch(lastFM)
+    const data = await result.json();
+    return data.toptracks.track
+}
 
-    const options = {headers: {apikey: apiKey.Napster}};
-
-    fetch(TasteDiveApi)
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(err => console.log(err))
-
-    fetch(napsterApi, options)
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(err => console.log(err))
-};
-
-getSongData()
+//replace metallica and  Daft Punk with artists name 
+const SimilarArtist = _getSimilarArtist('metallica')
+const artistTopTracks = _getTopTracks('Daft Punk')
