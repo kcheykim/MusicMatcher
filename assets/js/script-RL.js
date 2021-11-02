@@ -16,11 +16,23 @@ function getArtist(event) {
 
 searchEl.addEventListener('click', getArtist);
 
+
+
+//-------------------------------------------------------------------------------//
+
 //for loop -> button1-5
 
-// document.getElementById("button1")
-// document.getElementById("button2")
-// document.getElementById("button3")
-// document.getElementById("button4")
-// document.getElementById("button5")
+let top1 = document.getElementById("button1")
+let top2 = document.getElementById("button2")
+let top3 = document.getElementById("button3")
+let top4 = document.getElementById("button4")
+let top5 = document.getElementById("button5")
 
+top1.addEventListener('click', )
+top2.addEventListener('click', )
+top3.addEventListener('click', )
+top4.addEventListener('click', )
+top5.addEventListener('click', )
+
+
+//-------------------------------------------------------------------------------//
