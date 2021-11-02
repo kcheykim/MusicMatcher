@@ -82,7 +82,7 @@ function getLyric() {
                 lyricEl.append(errorMessage);
             }
         });
-}
+
 }
 
 function replaceStr(string, unwanted, replace) {
