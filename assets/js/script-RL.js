@@ -14,28 +14,13 @@ function getArtist(event) {
     }
 }
 
-
-                // var artist = $('<h2 class="artist"></h2>').text("")
-                var artist;
-                var artistEl = document.createElement("h2")
-                artistEl.innerText = ""
-                artistEl.setAttribute('id', 'artist-name')
-                artistInfo.appendChild(artist);
-
-
-
-            });
-        } else {
-            
-            var errorMessage = document.createElement("p")
-            errorMessage.innerText = "Please seach again"
-            errorMessage.setAttribute('id' , 'error-message')
-            //append error message under search button if there is an error
-            SearchBtnEl.appendChild(errorMessage);
-
-        }
-    
-}
-
 searchEl.addEventListener('click', getArtist);
+
+//for loop -> button1-5
+
+// document.getElementById("button1")
+// document.getElementById("button2")
+// document.getElementById("button3")
+// document.getElementById("button4")
+// document.getElementById("button5")
 
