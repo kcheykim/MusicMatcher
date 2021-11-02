@@ -1,19 +1,26 @@
 //submit button element for adding click event for our search
-let searchEl = document.getElementById("search-artist");
+let searchEl = document.getElementById('search-artist');
 
 
 function getArtist(event) {
+    debugger;
     event.preventDefault();
     if (searchEl) {
-        let artist = document.getElementById("artist-input").value
+
+        let artist = document.getElementById('artist-input').value;
+        debugger;
         if (!artist) {
             return;
         }
+
         _getSimilarArtist(artist);
+
+        getLyric(artist); //need to get rid of this once pass the artist from Kurtis function
     }
 }
 
 searchEl.addEventListener('click', getArtist);
+debugger;
 
 
 
@@ -21,17 +28,17 @@ searchEl.addEventListener('click', getArtist);
 
 //for loop -> button1-5
 
-let top1 = document.getElementById("button1")
-let top2 = document.getElementById("button2")
-let top3 = document.getElementById("button3")
-let top4 = document.getElementById("button4")
-let top5 = document.getElementById("button5")
+let top1 = document.getElementById("button1");
+let top2 = document.getElementById("button2");
+let top3 = document.getElementById("button3");
+let top4 = document.getElementById("button4");
+let top5 = document.getElementById("button5");
 
-top1.addEventListener('click', )
-top2.addEventListener('click', )
-top3.addEventListener('click', )
-top4.addEventListener('click', )
-top5.addEventListener('click', )
+// top1.addEventListener('click', )
+// top2.addEventListener('click', )
+// top3.addEventListener('click', )
+// top4.addEventListener('click', )
+// top5.addEventListener('click', )
 
 
 //-------------------------------------------------------------------------------//
@@ -56,29 +63,37 @@ const _getTopTracks = async(artistName) => {
 const SimilarArtist = _getSimilarArtist('metallica')
 const artistTopTracks = _getTopTracks('Daft Punk')
 
-function getLyric() {
-    let lyricApi = "https://api.lyrics.ovh/v1/";
-    fetch(lyricApi + artist + "/" + song)
+
+function getLyric(artist) {
+    let lyricEl = document.getElementById('lyric');
+    lyricEl.innerHTML = "";
+    debugger;
+    let song = prompt('Please type in a song: ');
+    if (!song) {
+        return;
+    }
+    let lyricApi = 'https://api.lyrics.ovh/v1/';
+    fetch(lyricApi + artist + '/' + song)
         .then(function(response) {
             if (response.ok) {
                 response.json().then(function(data) {
                     console.log(data.lyrics);
-                    var parseLyric = data.lyrics.split("\r\n")[1];
-                    parseLyric = replaceStr(parseLyric, "\n\n\n", "|");
-                    parseLyric = replaceStr(parseLyric, "\n\n", "|");
-                    parseLyric = replaceStr(parseLyric, "\n", "|");
-                    const newLyric = parseLyric.split("|");
+                    var parseLyric = data.lyrics.split('\r\n')[1];
+                    parseLyric = replaceStr(parseLyric, '\n\n\n', '|');
+                    parseLyric = replaceStr(parseLyric, '\n\n', '|');
+                    parseLyric = replaceStr(parseLyric, '\n', '|');
+                    const newLyric = parseLyric.split('|');
                     for (var i = 0; i < newLyric.length; i++) {
-                        var lyrics = document.createElement("p");
-                        lyrics.style.color = "yellow";
-                        lyrics.style.fontSize = "15px";
+                        var lyrics = document.createElement('p');
+                        lyrics.style.color = 'yellow';
+                        lyrics.style.fontSize = '15px';
                         lyrics.innerHTML = newLyric[i];
                         lyricEl.appendChild(lyrics);
                     }
                 });
             } else {
-                var errorMessage = document.createElement("p");
-                errorMessage.innerHTML = "Invalid: No such artist with this song."
+                var errorMessage = document.createElement('p');
+                errorMessage.innerHTML = 'Invalid: No such artist with this song.';
                 lyricEl.append(errorMessage);
             }
         });
