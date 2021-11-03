@@ -2,10 +2,27 @@ const lastFmKey = 'f50b0e7f874bf3ca9a40af2dc2697097'
 let artist = document.getElementById('artist-input').value;
 let oldSearch = [];
 
+function getArtist() {
+    artist = document.getElementById('artist-input').value;
+    oldSearch.unshift(artist);
+    localStorage.setItem("artist", JSON.stringify(oldSearch));
+    artist.value = "";    
+    let newArtist = document.createElement('button');
+    newArtist.classList.add('btn-results');
+    newArtist.classList.add('button');
+    newArtist.classList.add('is-medium');
+    newArtist.classList.add('mt-1');
+    newArtist.textContent = artist;
+    document.querySelector("#search-results").innerHTML = '';
+    loadOldSearch();
+    _getSimilarArtist(artist);
+};
 const _getSimilarArtist = async (search) => {
     const lastFM = `https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${search}&api_key=${lastFmKey}&format=json&limit=5`;
     const result = await fetch(lastFM);
     const data = await result.json();
+    console.log(data)
+    document.getElementById('song').textContent = data.similarartists["@attr"].artist
     document.querySelector("#similar-artist").innerHTML = '';
     for (let i = 0; i < data.similarartists.artist.length; i++) {
         let similarArtistEl = document.createElement('button');
@@ -19,40 +36,37 @@ const _getSimilarArtist = async (search) => {
     let savedResults = document.querySelectorAll(".btn-similar-artist");
     for (let i = 0; i < savedResults.length; i++) {
         savedResults[i].addEventListener('click', function () {
-            _getTopTracks(savedResults[i]);
+            _getTopTracks(savedResults[i].innerHTML);
         });
     };
-}
+};
 
 const _getTopTracks = async (artistName) => {
     const lastFM = `https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${artistName}&api_key=${lastFmKey}&format=json&limit=5`
     const result = await fetch(lastFM)
     const data = await result.json();
-    console.log(data)
-    return data.toptracks.track
-}
+    document.querySelector("#top-tracks").innerHTML = '';
+    for (let i = 0; i < data.toptracks.track.length; i++) {
+        let similarArtistEl = document.createElement('button');
+        similarArtistEl.textContent = data.toptracks.track[i].name;
+        similarArtistEl.classList.add('btn-top-tracks');
+        similarArtistEl.classList.add('button');
+        similarArtistEl.classList.add('is-medium');
+        similarArtistEl.classList.add('mt-1');
+        document.querySelector("#top-tracks").appendChild(similarArtistEl);
+    };
+    let savedResults = document.querySelectorAll(".btn-top-tracks");
+    for (let i = 0; i < savedResults.length; i++) {
+        savedResults[i].addEventListener('click', function () {
+            getLyric(artistName,savedResults[i].innerHTML);
+        });
+    };
+};
 
 //submit button element for adding click event for our search
 let searchEl = document.getElementById('search-artist');
 
-function getArtist() {
-    artist = document.getElementById('artist-input').value;
-    oldSearch.unshift(artist);
-    localStorage.setItem("artist", JSON.stringify(oldSearch));
-    artist.value = "";
-    
-    // fix issue with going past 5 results 
-    let newArtist = document.createElement('button');
-    newArtist.classList.add('btn-results');
-    newArtist.classList.add('button');
-    newArtist.classList.add('is-medium');
-    newArtist.classList.add('mt-1');
-    newArtist.textContent = artist;
-    document.querySelector("#search-results").innerHTML = '';
-    loadOldSearch();
 
-    _getSimilarArtist(artist);
-}
 function loadOldSearch() {
     try {
         oldSearch = JSON.parse(localStorage.getItem("artist"));
@@ -73,11 +87,10 @@ function loadOldSearch() {
             });
         };
     } catch (error) {
-        console.log(error)
+        console.log(error);
         oldSearch = [];
     };
 };
-
 
 function getLyric(artist, song) {
     let lyricEl = document.getElementById('lyric');
@@ -116,8 +129,6 @@ function getLyric(artist, song) {
 function replaceStr(string, unwanted, replace) {
     return string.split(unwanted).join(replace);
 }
-
-
 
 searchEl.addEventListener('click', getArtist);
 loadOldSearch()
