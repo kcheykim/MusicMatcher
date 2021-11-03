@@ -18,7 +18,7 @@ function storeInfo() {
 
 function getLyric() {
 
-    let lyricEl = document.getElementById("lyrics-p");
+    let lyricEl = document.getElementById("lyric");
     lyricEl.innerHTML = "";
 
     if (submitBtnEl) {
@@ -28,6 +28,8 @@ function getLyric() {
         if (!song) {
             return;
         }
+        let lyricTitleEl = document.getElementById("lyric-title");
+        lyricTitleEl += ": " + song;
         localStorage.setItem(artist, song);
 
         let lyricApi = "https://api.lyrics.ovh/v1/";
@@ -35,19 +37,21 @@ function getLyric() {
             .then(function(response) {
                 if (response.ok) {
                     response.json().then(function(data) {
-                        console.log(data.lyrics);
                         var parseLyric = data.lyrics.split("\r\n")[1];
                         parseLyric = replaceStr(parseLyric, "\n\n\n", "|");
                         parseLyric = replaceStr(parseLyric, "\n\n", "|");
                         parseLyric = replaceStr(parseLyric, "\n", "|");
                         const newLyric = parseLyric.split("|");
                         for (var i = 0; i < newLyric.length; i++) {
+
                             var lyrics = document.createElement("p");
-                            lyrics.style.color = "yellow";
-                            lyrics.style.fontSize = "15px";
+                            // lyrics.style.color = "yellow";
+                            // lyrics.style.fontSize = "15px";
                             lyrics.innerHTML = newLyric[i];
                             lyricEl.appendChild(lyrics);
                         }
+
+                        // lyricEl.innerHTML = JSON.parse(data.lyrics);
                     });
                 } else {
                     var errorMessage = document.createElement("p");
