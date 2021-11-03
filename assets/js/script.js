@@ -23,6 +23,7 @@ const _getSimilarArtist = async (search) => {
     const data = await result.json();
     document.getElementById('song').textContent = `${data.similarartists["@attr"].artist}`
     document.querySelector("#similar-artist").innerHTML = '';
+    document.querySelector("#top-tracks").innerHTML = '';
     for (let i = 0; i < data.similarartists.artist.length; i++) {
         let similarArtistEl = document.createElement('button');
         similarArtistEl.textContent = data.similarartists.artist[i].name;
