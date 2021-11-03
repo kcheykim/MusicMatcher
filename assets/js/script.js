@@ -20,7 +20,6 @@ const _getTopTracks = async (artistName) => {
 //submit button element for adding click event for our search
 let searchEl = document.getElementById('search-artist');
 
-
 function getArtist(event) {
     event.preventDefault();
     if (searchEl) {
@@ -28,7 +27,7 @@ function getArtist(event) {
         if (!artist) {
             return;
         }   
-        oldSearch.push(artist);
+        oldSearch.unshift(artist);
         localStorage.setItem("artist", JSON.stringify(oldSearch));
         artist.value = "";
 
@@ -44,11 +43,14 @@ searchEl.addEventListener('click', getArtist);
 function loadOldSearch() {
     try {
       oldSearch = JSON.parse(localStorage.getItem("artist"));
-      for (let i = 0; i < oldSearch.length; i++) {
+      for (let i = 0; i < 5; i++) {
         let searchEl = document.createElement(`button${i}`);
         searchEl.textContent = `${oldSearch[i]}`;
+        if(oldSearch[i] == undefined) return
         searchEl.classList.add('btn-results');
-        searchEl.classList.add('is-medium mt-1');
+        searchEl.classList.add('button');
+        searchEl.classList.add('is-medium');
+        searchEl.classList.add('mt-1');
         document.querySelector("#search-results").appendChild(searchEl);
       };
       let savedResults = document.querySelectorAll(".btn-results");
@@ -60,33 +62,8 @@ function loadOldSearch() {
     } catch (error) {
       console.log(error)
       oldSearch = [];
-    }
-  }
-
-//-------------------------------------------------------------------------------//
-
-//for loop -> button1-5
-
-let top1 = document.getElementById("button1");
-let top2 = document.getElementById("button2");
-let top3 = document.getElementById("button3");
-let top4 = document.getElementById("button4");
-let top5 = document.getElementById("button5");
-
-// top1.addEventListener('click', )
-// top2.addEventListener('click', )
-// top3.addEventListener('click', )
-// top4.addEventListener('click', )
-// top5.addEventListener('click', )
-
-
-//-------------------------------------------------------------------------------//
-
-
-//replace metallica and  Daft Punk with artists name 
-const SimilarArtist = _getSimilarArtist('metallica')
-const artistTopTracks = _getTopTracks('Daft Punk')
-
+    };
+  };
 
 function getLyric(artist , song) {
     let lyricEl = document.getElementById('lyric');
@@ -125,3 +102,6 @@ function getLyric(artist , song) {
 function replaceStr(string, unwanted, replace) {
     return string.split(unwanted).join(replace);
 }
+
+
+loadOldSearch()
