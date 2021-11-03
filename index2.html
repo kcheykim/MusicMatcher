@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma-rtl.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <title>Music Matcher</title>
+</head>
+
+<body>
+    <header class="top-banner">
+        <h1 class="title">Music Matcher</h1>`
+    </header>
+
+
+  <body>
+    <main>
+      <div class="columns">
+        <div class="column is-3">
+          <header class="tile is-parent">
+            <h1 class="title tile is-child notification leftside">
+              Music Matcher &REG;
+            </h1>
+          </header>
+          <div class="tile is-parent is-vertical">
+            <!-- added id 'request-song' for appending song -->
+            <article class="tile is-child notification leftside" id="request-song">
+              <h2 class="title" id="request">Recent Request</h2>
+              <button class="button is-medium mt-1" id="button1"></button>
+              <button class="button is-medium mt-1" id="button2"></button>
+              <button class="button is-medium mt-1" id="button3"></button>
+              <button class="button is-medium mt-1" id="button4"></button>
+              <button class="button is-medium mt-1" id="button5"></button>
+            </article>
+          </div>
+
+          <div class="tile is-parent">
+            <article class="tile is-child notification leftside">
+              <p class="title" id="search">Search Your Artist</p>
+              <input
+                class="input is-round is-focused is-normal"
+                type="text"
+                placeholder="e.g. Perfect"
+                id="artist-input"
+              />
+              <div class="searchBtn">
+                <!-- added id 'search-artist' for enabling addEventListener -->
+                <button class="button is-medium mt-1" id="search-artist">
+                  Search
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="column is-9 rightside">
+          <div class="tile is-parent">
+            <article class="tile is-child notification righty">
+              <!-- added id 'song-info' for appending artist -->
+              <div class="content" id="song-info">
+                <h2 class="title" id="song">Song Title</h2>
+                <p class="subtitle">Artist Info</p>
+                <figure class="image is-4by3">
+                  <img src="https://bulma.io/images/placeholders/640x480.png" />
+                </figure>
+                <p class="subtitle">
+                  Placeholder will be streaming of the song....
+                </p>
+                <div class="content"></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="tile is-parent">
+            <!-- added id 'lyrics-p' for appending lyrics -->
+            <article class="tile is-child notification righty" id="lyrics-p">
+              <h2 class="title" id="lyric">Lyric</h2>
+              <p class="subtitle">Line A</p>
+              <p class="subtitle">Line B</p>
+              <p class="subtitle">Line C</p>
+              <p class="subtitle">Line D</p>
+              <p class="subtitle">Line E</p>
+              <p class="subtitle">Line F</p>
+              <div class="content"></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="columns has-text-centered mt-5 p-4">
+      <div class="column is-12">
+        <p>Music Matcher &REG</p>
+        <p>
+          Adam Menkes, David B Malki, Kosal Cheykim, Kurtis Hight, Leung Ching
+        </p>
+      </div>
+    </footer>
+    <script src="./assets/js/script-RL.js"></script>
+  </body>
+</html>
