@@ -6,7 +6,7 @@ function getArtist() {
     artist = document.getElementById('artist-input').value;
     oldSearch.unshift(artist);
     localStorage.setItem("artist", JSON.stringify(oldSearch));
-    artist.value = "";    
+    artist.value = "";
     let newArtist = document.createElement('button');
     newArtist.classList.add('btn-results');
     newArtist.classList.add('button');
@@ -17,7 +17,7 @@ function getArtist() {
     loadOldSearch();
     _getSimilarArtist(artist);
 };
-const _getSimilarArtist = async (search) => {
+const _getSimilarArtist = async(search) => {
     const lastFM = `https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${search}&api_key=${lastFmKey}&format=json&limit=5`;
     const result = await fetch(lastFM);
     const data = await result.json();
@@ -35,13 +35,13 @@ const _getSimilarArtist = async (search) => {
     };
     let savedResults = document.querySelectorAll(".btn-similar-artist");
     for (let i = 0; i < savedResults.length; i++) {
-        savedResults[i].addEventListener('click', function () {
+        savedResults[i].addEventListener('click', function() {
             _getTopTracks(savedResults[i].innerHTML);
         });
     };
 };
 
-const _getTopTracks = async (artistName) => {
+const _getTopTracks = async(artistName) => {
     const lastFM = `https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${artistName}&api_key=${lastFmKey}&format=json&limit=5`
     const result = await fetch(lastFM)
     const data = await result.json();
@@ -57,8 +57,8 @@ const _getTopTracks = async (artistName) => {
     };
     let savedResults = document.querySelectorAll(".btn-top-tracks");
     for (let i = 0; i < savedResults.length; i++) {
-        savedResults[i].addEventListener('click', function () {
-            getLyric(artistName,savedResults[i].innerHTML);
+        savedResults[i].addEventListener('click', function() {
+            getLyric(artistName, savedResults[i].innerHTML);
         });
     };
 };
@@ -82,7 +82,7 @@ function loadOldSearch() {
         };
         let savedResults = document.querySelectorAll(".btn-results");
         for (let i = 0; i < savedResults.length; i++) {
-            savedResults[i].addEventListener('click', function () {
+            savedResults[i].addEventListener('click', function() {
                 document.getElementById('artist-input').value = savedResults[i].innerHTML
             });
         };
@@ -95,35 +95,29 @@ function loadOldSearch() {
 function getLyric(artist, song) {
     let lyricEl = document.getElementById('lyric');
     lyricEl.innerHTML = "";
-    if (!song) {
-        return;
-    }
     let lyricApi = 'https://api.lyrics.ovh/v1/';
     fetch(lyricApi + artist + '/' + song)
-    .then(function (response) {
-        if (response.ok) {
-            response.json().then(function (data) {
-                console.log(data.lyrics);
-                var parseLyric = data.lyrics.split('\r\n')[1];
-                parseLyric = replaceStr(parseLyric, '\n\n\n', '|');
-                parseLyric = replaceStr(parseLyric, '\n\n', '|');
-                parseLyric = replaceStr(parseLyric, '\n', '|');
-                const newLyric = parseLyric.split('|');
-                for (var i = 0; i < newLyric.length; i++) {
-                    var lyrics = document.createElement('p');
-                    lyrics.style.color = 'yellow';
-                    lyrics.style.fontSize = '15px';
-                    lyrics.innerHTML = newLyric[i];
-                    lyricEl.appendChild(lyrics);
-                }
-            });
-        } else {
-            var errorMessage = document.createElement('p');
-            errorMessage.innerHTML = 'Invalid: No such artist with this song.';
-            lyricEl.append(errorMessage);
-        }
-    });
-    
+        .then(function(response) {
+            if (response.ok) {
+                response.json().then(function(data) {
+                    var parseLyric = data.lyrics.split('\r\n')[1];
+                    parseLyric = replaceStr(parseLyric, '\n\n\n', '|');
+                    parseLyric = replaceStr(parseLyric, '\n\n', '|');
+                    parseLyric = replaceStr(parseLyric, '\n', '|');
+                    const newLyric = parseLyric.split('|');
+                    for (var i = 0; i < newLyric.length; i++) {
+                        var lyrics = document.createElement('p');
+                        lyrics.innerHTML = newLyric[i];
+                        lyricEl.appendChild(lyrics);
+                    }
+                });
+            } else {
+                var errorMessage = document.createElement('p');
+                errorMessage.innerHTML = 'Invalid: No such artist with this song.';
+                lyricEl.append(errorMessage);
+            }
+        });
+
 }
 
 function replaceStr(string, unwanted, replace) {

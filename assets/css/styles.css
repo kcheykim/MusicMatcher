@@ -1,5 +1,5 @@
 body {
-    background-color:black ;
+    background-color: black;
 }
 
 .title {
@@ -7,7 +7,7 @@ body {
     color: white;
 }
 
-.button{
+.button {
     background-color: #1db954;
     color: white !important;
     font-family: 'Nunito Sans', sans-serif;
@@ -29,4 +29,10 @@ body {
 
 footer {
     color: #1db954;
+}
+
+#lyric {
+    height: 300px;
+    overflow-y: auto;
+    background-image: linear-gradient(to right, black, green, lightgreen);
 }
