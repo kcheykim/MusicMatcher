@@ -81,7 +81,7 @@ function loadOldSearch() {
         };
         let savedResults = document.querySelectorAll(".btn-results");
         for (let i = 0; i < savedResults.length; i++) {
-            savedResults[i].addEventListener('click', function () {
+            savedResults[i].addEventListener('click', function() {
                 document.getElementById('artist-input').value = savedResults[i].innerHTML
             });
         };
