@@ -59,6 +59,7 @@ const _getTopTracks = async(artistName) => {
     for (let i = 0; i < savedResults.length; i++) {
         savedResults[i].addEventListener('click', function() {
             getLyric(artistName, savedResults[i].innerHTML);
+            getImages(artistName, savedResults[i].innerHTML);
         });
     };
 };
@@ -98,8 +99,7 @@ function getLyric(artist, song) {
     document.getElementById('lyric-title').textContent = "";
     document.getElementById('lyric-title').textContent += "Lyric: ";
     document.getElementById('lyric-title').textContent += song;
-    let lyricApi = 'https://api.lyrics.ovh/v1/';
-    fetch(lyricApi + artist + '/' + song)
+    fetch(`https://api.lyrics.ovh/v1/${artist}/${song}/`)
         .then(function(response) {
             if (response.ok) {
                 response.json().then(function(data) {
@@ -129,6 +129,34 @@ function getLyric(artist, song) {
 function replaceStr(string, unwanted, replace) {
     return string.split(unwanted).join(replace);
 }
+
+function getImages(artist, song) {
+    let artistEl = document.getElementById('artist');
+    artistEl.innerHTML = "";
+    document.getElementById('lyric-title').textContent = "";
+    document.getElementById('lyric-title').textContent += "Artist: ";
+    document.getElementById('lyric-title').textContent += artist;
+    fetch(`https://g.tenor.com/v1/search?q=${artist}&key=SCEYCNJDE0WA&limit=5`)
+        .then(function(response) {
+            if (response.ok) {
+                response.json().then(function(data) {
+                    console.log(data);
+                    // for (var i = 0; i < newLyric.length; i++) {
+                    //     var lyrics = document.createElement('p');
+                    //     lyrics.innerHTML = newLyric[i];
+                    //     lyricEl.appendChild(lyrics);
+                    // }
+
+                });
+            } else {
+                var errorMessage = document.createElement('p');
+                errorMessage.innerHTML = 'Unavailable Images.';
+                artistEl.append(errorMessage);
+            }
+        });
+
+}
+
 
 searchEl.addEventListener('click', getArtist);
 loadOldSearch()
