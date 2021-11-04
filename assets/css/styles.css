@@ -31,6 +31,19 @@ footer {
     color: #1db954;
 }
 
+#top-right-box {
+    background-image: url("../images/transparent-musical-notes-7.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
 #lyric {
     height: 300px;
     overflow-y: auto;
