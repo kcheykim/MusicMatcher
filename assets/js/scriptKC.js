@@ -65,3 +65,66 @@ function getLyric() {
 function replaceStr(string, unwanted, replace) {
     return string.split(unwanted).join(replace);
 }
+
+// url Async requesting function
+function httpGetAsync(theUrl, callback) {
+    // create the request object
+    var xmlHttp = new XMLHttpRequest();
+
+    // set the state change callback to capture when the response comes in
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            callback(xmlHttp.responseText);
+        }
+    }
+
+    // open as a GET call, pass in the url and set async = True
+    xmlHttp.open("GET", theUrl, true);
+
+    // call send with no params as they were passed in on the url string
+    xmlHttp.send(null);
+
+    return;
+}
+let responsetext = "dua lipa"
+    // callback for GIF categories
+function tenorCallback_categories(responsetext) {
+    // parse the json response
+    var response_objects = JSON.parse(responsetext);
+
+    categories = response_objects["tags"];
+
+    // load the categories - example is for the first category
+
+    // url to load:
+    var imgurl = categories[0]["image"];
+
+    // text to overlay on image:
+    var txt_overlay = categories[0]["name"];
+
+
+    // search to run if user clicks the category
+    var category_search_path = categories[0]["path"];
+
+    document.getElementById("category_gif").src = imgurl
+    document.getElementById("catgif_caption").innerHTML = txt_overlay
+    document.getElementById("cat_link").href = category_search_path
+
+    return;
+}
+
+function grab_data() {
+    // set the apikey and limit
+    var apikey = "SCEYCNJDEOWA";
+    var lmt = 10;
+
+    // get the current list of categories - using the default locale of en_US
+    var cat_url = "https://g.tenor.com/v1/categories?key=" + apikey;
+
+    httpGetAsync(cat_url, tenorCallback_categories);
+
+    // data will be loaded by each call's callback
+    return;
+}
+
+grab_data();
