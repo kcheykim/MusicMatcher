@@ -1,15 +1,17 @@
-const lastFmKey = 'f50b0e7f874bf3ca9a40af2dc2697097';
+let audio = null;
+let artist = document.getElementById('artist-input').value;
+let oldSearch = [];
+let artistName = null;
 const options = {
     headers: {
         apikey: 'MDc1YWUxMWUtYjY0NS00ZGI5LTgxNzEtZjRmMWY0NGQ3Nzgx'
     }
 };
-let audio= null;
-let artist = document.getElementById('artist-input').value;
-let oldSearch = [];
-let artistName = 'ACDC'
+
 function getArtist() {
     artist = document.getElementById('artist-input').value;
+    artistName = artist
+
     oldSearch.unshift(artist);
     localStorage.setItem("artist", JSON.stringify(oldSearch));
     artist.value = "";
@@ -20,59 +22,66 @@ function getArtist() {
     newArtist.classList.add('mt-1');
     newArtist.textContent = artist;
     document.querySelector("#search-results").innerHTML = '';
-    loadOldSearch();
-    _getSimilarArtist(artist);
-};
-const _getSimilarArtist = async (search) => {
-    const lastFM = `https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${search}&api_key=${lastFmKey}&format=json&limit=5`;
-    const result = await fetch(lastFM);
-    const data = await result.json();
 
+    loadOldSearch();
+    _getArtistID(artist.toLowerCase().replace(' ', '-'));
+};
+const _getArtistID = async (search) => {
+    const result = await fetch(`https://api.napster.com/v2.2/artists/${search}`, options);
+    const data = await result.json();
+    document.getElementById('song').textContent = `${data.artists[0].name}`;
+    _getSimilarArtist(data.artists[0].id)
+};
+
+
+const _getSimilarArtist = async (search) => {
+    const result = await fetch(`http://api.napster.com/v2.2/artists/${search}/similar`, options);
+    const data = await result.json();
+    document.querySelector("#similar-artist").innerHTML = '';
+    document.querySelector("#top-tracks").innerHTML = '';
     try {
-        document.getElementById('song').textContent = `${data.similarartists["@attr"].artist}`;
-        document.querySelector("#similar-artist").innerHTML = '';
-        document.querySelector("#top-tracks").innerHTML = '';
-        for (let i = 0; i < data.similarartists.artist.length; i++) {
+        for (let i = 0; i < 5; i++) {
             let similarArtistEl = document.createElement('button');
-            similarArtistEl.textContent = data.similarartists.artist[i].name;
+            similarArtistEl.textContent = data.artists[i].name;
             similarArtistEl.classList.add('btn-similar-artist');
             similarArtistEl.classList.add('button');
             similarArtistEl.classList.add('is-medium');
             similarArtistEl.classList.add('mt-1');
+            similarArtistEl.setAttribute('id', `${data.artists[i].id}`);
             document.querySelector("#similar-artist").appendChild(similarArtistEl);
         };
         let savedResults = document.querySelectorAll(".btn-similar-artist");
         for (let i = 0; i < savedResults.length; i++) {
             savedResults[i].addEventListener('click', function () {
-                _getTopTracks(savedResults[i].innerHTML);
+                _getTopTracks(savedResults[i].id);
             });
         };
-    } catch (error) {
-        console.log(error);
-    };
+    } catch (error) {}
 };
 
-const _getTopTracks = async (artistID='art.4085') => {
-    const result = await fetch(`https://api.napster.com/v2.2/artists/${artistID}/tracks/top?limit=5`);
+const _getTopTracks = async (artistID) => {
+    const result = await fetch(`https://api.napster.com/v2.2/artists/${artistID}/tracks/top?limit=5`, options);
     const data = await result.json();
     document.querySelector("#top-tracks").innerHTML = '';
-    for (let i = 0; i < 5; i++) {
-        let similarArtistEl = document.createElement('button');
-        similarArtistEl.textContent = data.tracks[i].name;
-        similarArtistEl.classList.add('btn-top-tracks');
-        similarArtistEl.classList.add('button');
-        similarArtistEl.classList.add('is-medium');
-        similarArtistEl.classList.add('mt-1');
-        document.querySelector("#top-tracks").appendChild(similarArtistEl);
-    };
-    let savedResults = document.querySelectorAll(".btn-top-tracks");
-    for (let i = 0; i < savedResults.length; i++) {
-        savedResults[i].addEventListener('click', function () {
-            getLyric(artistName, savedResults[i].innerHTML);
-            audio = new Audio(data.tracks[i].previewURL)
+    try {
+        for (let i = 0; i < 5; i++) {
+            let similarArtistEl = document.createElement('button');
+            similarArtistEl.textContent = data.tracks[i].name;
+            similarArtistEl.classList.add('btn-top-tracks');
+            similarArtistEl.classList.add('button');
+            similarArtistEl.classList.add('is-medium');
+            similarArtistEl.classList.add('mt-1');
+            document.querySelector("#top-tracks").appendChild(similarArtistEl);
+        };
+        let savedResults = document.querySelectorAll(".btn-top-tracks");
+        for (let i = 0; i < savedResults.length; i++) {
+            savedResults[i].addEventListener('click', function () {
+                getLyric(artistName, savedResults[i].innerHTML);
+                audio = new Audio(data.tracks[i].previewURL)
+            });
+        };
 
-        });
-    };
+    } catch (error) {}
 };
 
 //submit button element for adding click event for our search
@@ -100,7 +109,6 @@ function loadOldSearch() {
             });
         };
     } catch (error) {
-        console.log(error);
         oldSearch = [];
     };
 };
@@ -144,19 +152,13 @@ function replaceStr(string, unwanted, replace) {
 }
 
 
-// function _getArtistID(search= 'ACDC') {
-//     fetch('https://api.napster.com/v2.2/artists/acdc', options)
-//     .then(res => res.json())
-//     .then(data => console.log(data))
-//     .catch(err => console.log(err))
-// };
+
 // _getAudio(data.artists[0].id)
-function _getAudio(artistID){
-    console.log(artistID)
+function _getAudio(artistID) {
     fetch('https://api.napster.com/v2.2/artists/acdc', options)
-    .then(res => res.json())
-    .then(data => _getAudio(data.artists[0].id))
-    .catch(err => console.log(err))
+        .then(res => res.json())
+        .then(data => _getAudio(data.artists[0].id))
+        .catch(err => console.log(err))
 
 }
 // audio =new Audio(data.tracks[0].previewURL)
