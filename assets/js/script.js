@@ -1,4 +1,4 @@
-const lastFmKey = 'f50b0e7f874bf3ca9a40af2dc2697097'
+const lastFmKey = 'f50b0e7f874bf3ca9a40af2dc2697097';
 let artist = document.getElementById('artist-input').value;
 let oldSearch = [];
 
@@ -21,29 +21,34 @@ const _getSimilarArtist = async(search) => {
     const lastFM = `https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${search}&api_key=${lastFmKey}&format=json&limit=5`;
     const result = await fetch(lastFM);
     const data = await result.json();
-    document.getElementById('song').textContent = `${data.similarartists["@attr"].artist}`
-    document.querySelector("#similar-artist").innerHTML = '';
-    document.querySelector("#top-tracks").innerHTML = '';
-    for (let i = 0; i < data.similarartists.artist.length; i++) {
-        let similarArtistEl = document.createElement('button');
-        similarArtistEl.textContent = data.similarartists.artist[i].name;
-        similarArtistEl.classList.add('btn-similar-artist');
-        similarArtistEl.classList.add('button');
-        similarArtistEl.classList.add('is-medium');
-        similarArtistEl.classList.add('mt-1');
-        document.querySelector("#similar-artist").appendChild(similarArtistEl);
-    };
-    let savedResults = document.querySelectorAll(".btn-similar-artist");
-    for (let i = 0; i < savedResults.length; i++) {
-        savedResults[i].addEventListener('click', function() {
-            _getTopTracks(savedResults[i].innerHTML);
-        });
+    
+    try {
+        document.getElementById('song').textContent = `${data.similarartists["@attr"].artist}`  ; 
+        document.querySelector("#similar-artist").innerHTML = '';
+        document.querySelector("#top-tracks").innerHTML = '';
+        for (let i = 0; i < data.similarartists.artist.length; i++) {
+            let similarArtistEl = document.createElement('button');
+            similarArtistEl.textContent = data.similarartists.artist[i].name;
+            similarArtistEl.classList.add('btn-similar-artist');
+            similarArtistEl.classList.add('button');
+            similarArtistEl.classList.add('is-medium');
+            similarArtistEl.classList.add('mt-1');
+            document.querySelector("#similar-artist").appendChild(similarArtistEl);
+        };
+        let savedResults = document.querySelectorAll(".btn-similar-artist");
+        for (let i = 0; i < savedResults.length; i++) {
+            savedResults[i].addEventListener('click', function() {
+                _getTopTracks(savedResults[i].innerHTML);
+            });
+        };
+    } catch (error) {
+        console.log(error);
     };
 };
 
 const _getTopTracks = async(artistName) => {
-    const lastFM = `https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${artistName}&api_key=${lastFmKey}&format=json&limit=5`
-    const result = await fetch(lastFM)
+    const lastFM = `https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${artistName}&api_key=${lastFmKey}&format=json&limit=5`;
+    const result = await fetch(lastFM);
     const data = await result.json();
     document.querySelector("#top-tracks").innerHTML = '';
     for (let i = 0; i < data.toptracks.track.length; i++) {
@@ -83,7 +88,8 @@ function loadOldSearch() {
         let savedResults = document.querySelectorAll(".btn-results");
         for (let i = 0; i < savedResults.length; i++) {
             savedResults[i].addEventListener('click', function() {
-                document.getElementById('artist-input').value = savedResults[i].innerHTML
+                document.getElementById('artist-input').value = savedResults[i].innerHTML;
+                _getSimilarArtist(savedResults[i].innerHTML);
             });
         };
     } catch (error) {
@@ -131,4 +137,4 @@ function replaceStr(string, unwanted, replace) {
 }
 
 searchEl.addEventListener('click', getArtist);
-loadOldSearch()
+loadOldSearch();
