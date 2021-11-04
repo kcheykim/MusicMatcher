@@ -1,7 +1,13 @@
 const lastFmKey = 'f50b0e7f874bf3ca9a40af2dc2697097';
+const options = {
+    headers: {
+        apikey: 'MDc1YWUxMWUtYjY0NS00ZGI5LTgxNzEtZjRmMWY0NGQ3Nzgx'
+    }
+};
+let audio= null;
 let artist = document.getElementById('artist-input').value;
 let oldSearch = [];
-
+let artistName = 'ACDC'
 function getArtist() {
     artist = document.getElementById('artist-input').value;
     oldSearch.unshift(artist);
@@ -17,13 +23,13 @@ function getArtist() {
     loadOldSearch();
     _getSimilarArtist(artist);
 };
-const _getSimilarArtist = async(search) => {
+const _getSimilarArtist = async (search) => {
     const lastFM = `https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=${search}&api_key=${lastFmKey}&format=json&limit=5`;
     const result = await fetch(lastFM);
     const data = await result.json();
-    
+
     try {
-        document.getElementById('song').textContent = `${data.similarartists["@attr"].artist}`  ; 
+        document.getElementById('song').textContent = `${data.similarartists["@attr"].artist}`;
         document.querySelector("#similar-artist").innerHTML = '';
         document.querySelector("#top-tracks").innerHTML = '';
         for (let i = 0; i < data.similarartists.artist.length; i++) {
@@ -37,7 +43,7 @@ const _getSimilarArtist = async(search) => {
         };
         let savedResults = document.querySelectorAll(".btn-similar-artist");
         for (let i = 0; i < savedResults.length; i++) {
-            savedResults[i].addEventListener('click', function() {
+            savedResults[i].addEventListener('click', function () {
                 _getTopTracks(savedResults[i].innerHTML);
             });
         };
@@ -46,14 +52,13 @@ const _getSimilarArtist = async(search) => {
     };
 };
 
-const _getTopTracks = async(artistName) => {
-    const lastFM = `https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${artistName}&api_key=${lastFmKey}&format=json&limit=5`;
-    const result = await fetch(lastFM);
+const _getTopTracks = async (artistID='art.4085') => {
+    const result = await fetch(`https://api.napster.com/v2.2/artists/${artistID}/tracks/top?limit=5`);
     const data = await result.json();
     document.querySelector("#top-tracks").innerHTML = '';
-    for (let i = 0; i < data.toptracks.track.length; i++) {
+    for (let i = 0; i < 5; i++) {
         let similarArtistEl = document.createElement('button');
-        similarArtistEl.textContent = data.toptracks.track[i].name;
+        similarArtistEl.textContent = data.tracks[i].name;
         similarArtistEl.classList.add('btn-top-tracks');
         similarArtistEl.classList.add('button');
         similarArtistEl.classList.add('is-medium');
@@ -62,8 +67,10 @@ const _getTopTracks = async(artistName) => {
     };
     let savedResults = document.querySelectorAll(".btn-top-tracks");
     for (let i = 0; i < savedResults.length; i++) {
-        savedResults[i].addEventListener('click', function() {
+        savedResults[i].addEventListener('click', function () {
             getLyric(artistName, savedResults[i].innerHTML);
+            audio = new Audio(data.tracks[i].previewURL)
+
         });
     };
 };
@@ -87,7 +94,7 @@ function loadOldSearch() {
         };
         let savedResults = document.querySelectorAll(".btn-results");
         for (let i = 0; i < savedResults.length; i++) {
-            savedResults[i].addEventListener('click', function() {
+            savedResults[i].addEventListener('click', function () {
                 document.getElementById('artist-input').value = savedResults[i].innerHTML;
                 _getSimilarArtist(savedResults[i].innerHTML);
             });
@@ -106,9 +113,9 @@ function getLyric(artist, song) {
     document.getElementById('lyric-title').textContent += song;
     let lyricApi = 'https://api.lyrics.ovh/v1/';
     fetch(lyricApi + artist + '/' + song)
-        .then(function(response) {
+        .then(function (response) {
             if (response.ok) {
-                response.json().then(function(data) {
+                response.json().then(function (data) {
                     var parseLyric = data.lyrics;
                     parseLyric = replaceStr(parseLyric, '\r\n', '|');
                     parseLyric = replaceStr(parseLyric, '\n\n\n\n', '|');
@@ -136,5 +143,31 @@ function replaceStr(string, unwanted, replace) {
     return string.split(unwanted).join(replace);
 }
 
+
+// function _getArtistID(search= 'ACDC') {
+//     fetch('https://api.napster.com/v2.2/artists/acdc', options)
+//     .then(res => res.json())
+//     .then(data => console.log(data))
+//     .catch(err => console.log(err))
+// };
+// _getAudio(data.artists[0].id)
+function _getAudio(artistID){
+    console.log(artistID)
+    fetch('https://api.napster.com/v2.2/artists/acdc', options)
+    .then(res => res.json())
+    .then(data => _getAudio(data.artists[0].id))
+    .catch(err => console.log(err))
+
+}
+// audio =new Audio(data.tracks[0].previewURL)
+function play() {
+    audio.play();
+}
+
+
+
+
 searchEl.addEventListener('click', getArtist);
 loadOldSearch();
+// _getArtistID();
+_getTopTracks();
