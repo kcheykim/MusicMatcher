@@ -30,12 +30,12 @@ const _getArtistID = async (search) => {
     const result = await fetch(`https://api.napster.com/v2.2/artists/${search}`, options);
     const data = await result.json();
     document.getElementById('song').textContent = `${data.artists[0].name}`;
-    _getSimilarArtist(data.artists[0].id)
+    _getSimilarArtist(data.artists[0].id);
 };
 
 
 const _getSimilarArtist = async (search) => {
-    const result = await fetch(`http://api.napster.com/v2.2/artists/${search}/similar`, options);
+    const result = await fetch(`http://api.napster.com/v2.2/artists/${search}/similar?`, options);
     const data = await result.json();
     document.querySelector("#similar-artist").innerHTML = '';
     document.querySelector("#top-tracks").innerHTML = '';
@@ -56,7 +56,7 @@ const _getSimilarArtist = async (search) => {
                 _getTopTracks(savedResults[i].id);
             });
         };
-    } catch (error) {}
+    } catch (error) {};
 };
 
 const _getTopTracks = async (artistID) => {
@@ -76,17 +76,14 @@ const _getTopTracks = async (artistID) => {
         let savedResults = document.querySelectorAll(".btn-top-tracks");
         for (let i = 0; i < savedResults.length; i++) {
             savedResults[i].addEventListener('click', function () {
-                getLyric(artistName, savedResults[i].innerHTML);
-                audio = new Audio(data.tracks[i].previewURL)
+                getLyric(data.tracks[i].artistName, savedResults[i].innerHTML);
+                audio = new Audio(data.tracks[i].previewURL);
             });
         };
-
     } catch (error) {}
 };
 
-//submit button element for adding click event for our search
 let searchEl = document.getElementById('search-artist');
-
 
 function loadOldSearch() {
     try {
@@ -105,7 +102,6 @@ function loadOldSearch() {
         for (let i = 0; i < savedResults.length; i++) {
             savedResults[i].addEventListener('click', function () {
                 document.getElementById('artist-input').value = savedResults[i].innerHTML;
-                _getSimilarArtist(savedResults[i].innerHTML);
             });
         };
     } catch (error) {
@@ -142,34 +138,22 @@ function getLyric(artist, song) {
                 var errorMessage = document.createElement('p');
                 errorMessage.innerHTML = 'Sorry - Lyric is unavailable.';
                 lyricEl.append(errorMessage);
-            }
+            };
         });
 
-}
+};
 
 function replaceStr(string, unwanted, replace) {
     return string.split(unwanted).join(replace);
-}
+};
 
-
-
-// _getAudio(data.artists[0].id)
-function _getAudio(artistID) {
-    fetch('https://api.napster.com/v2.2/artists/acdc', options)
-        .then(res => res.json())
-        .then(data => _getAudio(data.artists[0].id))
-        .catch(err => console.log(err))
-
-}
-// audio =new Audio(data.tracks[0].previewURL)
 function play() {
     audio.play();
-}
+};
 
-
-
+function pause() {
+    audio.pause();
+};
 
 searchEl.addEventListener('click', getArtist);
 loadOldSearch();
-// _getArtistID();
-_getTopTracks();
