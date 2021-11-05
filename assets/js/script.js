@@ -177,6 +177,7 @@ function replaceStr(string, unwanted, replace) {
     return string.split(unwanted).join(replace);
 };
 
+
 function play() {
     try {
         audio.play();
