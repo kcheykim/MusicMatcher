@@ -1,11 +1,11 @@
 html {
     background-color: black;
 }
+
 :root {
     --main-text: rgb(187, 164, 34);
     --secondary-text: #485FC7;
 }
-
 
 body {
     background-color: black;
@@ -21,7 +21,6 @@ header h1 {
     text-shadow: 0 0 20px rgba(136, 127, 127, 0.726);
 }
 
-
 .app-name {
     font-size: 6rem;
     padding-left: 50px;
@@ -29,7 +28,6 @@ header h1 {
 
 .title {
     font-family: 'Nunito Sans', sans-serif;
-    
 }
 
 .button {
@@ -42,8 +40,8 @@ header h1 {
 }
 
 .button:hover {
-    font-size:x-large;
-    border-color:black;
+    font-size: x-large;
+    border-color: black;
 }
 
 .searchBtn {
@@ -65,30 +63,25 @@ header h1 {
     color: white;
 }
 
-
-
 footer {
     color: #1db954;
     padding: 150px 50px;
-    padding-bottom:0;
-    
+    padding-bottom: 0;
     font-style: italic;
     font-size: 1.5rem;
     text-shadow: 0 0 20px rgba(71, 3, 116, 0.774);
 }
 
 #lyric {
-    height: 300px;
-    overflow-y: auto;
-    background-image: linear-gradient(to right, black, green, lightgreen);
+    padding-left: 10px;
+    font-size: 1.2rem;
 }
 
 .rainbow-text {
     background-image: linear-gradient(to left, yellow, orange, red);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    
-  }
+}
 
 .left-text {
     color: var(--main-text)!important;
