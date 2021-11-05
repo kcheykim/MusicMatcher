@@ -2,15 +2,38 @@ body {
     background-color: black;
 }
 
+header {
+    background-color: rgba(255, 0, 0, 0.315);
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+header h1 {
+    text-shadow: 0 0 20px rgba(136, 127, 127, 0.726);
+}
+
+
+.app-name {
+    font-size: 6rem;
+    padding-left: 50px;
+}
+
 .title {
     font-family: 'Nunito Sans', sans-serif;
-    color: white;
+    
 }
 
 .button {
     background-color: #1db954;
     color: white !important;
     font-family: 'Nunito Sans', sans-serif;
+    margin: 5px;
+    border-color: black;
+}
+
+.searchBtn {
+    display: flex;
+    justify-content: center;
 }
 
 .rightside {
@@ -27,8 +50,18 @@ body {
     color: white;
 }
 
+
+
 footer {
+    z-index:9999;
+    margin: 0;
     color: #1db954;
+    padding: 50px 50px;
+    padding-bottom:0;
+    background-color: rgba(255, 0, 0, 0.315);
+    font-style: italic;
+    font-size: 2rem;
+    text-shadow: 0 0 20px rgba(71, 3, 116, 0.774);
 }
 
 #lyric {
@@ -36,3 +69,10 @@ footer {
     overflow-y: auto;
     background-image: linear-gradient(to right, black, green, lightgreen);
 }
+
+.rainbow-text {
+    background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+  }

@@ -14,8 +14,9 @@
 </head>
 
 <body>
-    <header class="top-banner">
-        <h1 class="title">Music Matcher</h1>`
+    <header class="top-banner ">
+        <progress class="progress is-medium is-primary" max="100">15%</progress>
+        <h1 class="title app-name rainbow-text ">Music Matcher &REG;</h1>
     </header>
 
 
@@ -31,18 +32,18 @@
                     <div class="tile is-parent is-vertical">
                         <!-- added id 'request-song' for appending song -->
                         <article class="tile is-child notification leftside" id="request-song">
-                            <h2 class="title" id="search-title">Recent Request</h2>
+                            <h2 class="title has-text-danger" id="search-title">Recent Request</h2>
                             <div class="content" id="search-results"></div>
                         </article>
                     </div>
 
                     <div class="tile is-parent">
                         <article class="tile is-child notification leftside">
-                            <p class="title" id="search">Search Your Artist</p>
-                            <input class="input is-round is-focused is-normal" type="text" placeholder="e.g. Perfect" id="artist-input" />
+                            <p class="title has-text-primary-dark" id="search">Search Your Artist</p>
+                            <input class="input is-round is-focused is-normal" type="text" placeholder="e.g. Adele" id="artist-input" />
                             <div class="searchBtn">
                                 <!-- added id 'search-artist' for enabling addEventListener -->
-                                <button class="button is-medium mt-1" id="search-artist"> Search</button>
+                                <button class="button is-medium" id="search-artist"> Search</button>
                             </div>
                         </article>
                     </div>
@@ -52,10 +53,10 @@
                         <article class="tile is-child notification righty">
                             <!-- added id 'song-info' for appending artist -->
                             <div class="content" id="song-info">
-                                <h2 class="title" id="song">Artist</h2>
-                                <p class="subtitle is-4 mt-2">Similar Artist</p>
+                                <h2 class="title is-2 has-text-link" id="song">Artist</h2>
+                                <p class="subtitle is-4 mt-2 has-text-success">Similar Artist</p>
                                 <div id='similar-artist'></div>
-                                <p class="subtitle is-4 mt-3">Top 5 Tracks</p>
+                                <p class="subtitle is-4 mt-3 has-text-danger-dark">Top 5 Tracks</p>
                                 <div id='top-tracks'></div>
                                 <div class="content"></div>
                             </div>
@@ -66,7 +67,7 @@
                     <div class="tile is-parent">
                         <!-- added id 'lyrics-p' for appending lyrics -->
                         <article class="tile is-child notification righty" id="lyrics-p">
-                            <h2 class="title" id="lyric-title">Lyric</h2>
+                            <h2 class="title has-text-warning" id="lyric-title">Lyric</h2>
                             <div class="content" id="lyric"></div>
                         </article>
                     </div>
@@ -74,12 +75,13 @@
             </div>
         </main>
 
-        <footer class="columns has-text-centered mt-5 p-4">
-            <div class="column is-12">
-                <p>Music Matcher &REG</p>
-                <p>
-                    Adam Menkes, David B Malki, Kosal Cheykim, Kurtis Hight, Leung Ching
+        <footer class="columns has-text-centered ">
+            <div class="column is-12 pb-0">
+                <p class="rainbow-text">Music Matcher &copy; 2021</p>
+                <p class="rainbow-text">
+                    Adam Menkes, David B Malki, Kosal Cheykim, Kurtis Hight, Ching Leung
                 </p>
+                <progress class="progress is-medium is-primary" max="100">15%</progress>
             </div>
         </footer>
         <script src="./assets/js/script.js"></script>
