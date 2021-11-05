@@ -45,7 +45,7 @@ header h1 {
 }
 /* Added hover features and make buttons bigger when hovered */
 .button:hover {
-    font-size: x-large;
+    font-size: 20.5px;
     border-color: black;
 }
 
@@ -71,8 +71,8 @@ header h1 {
 
 footer {
     color: #1db954;
-    padding: 150px 50px;
-    padding-bottom:0;
+    padding: 100px 50px;
+    
     font-style: italic;
     font-size: 1.5rem;
     text-shadow: 0 0 20px rgba(71, 3, 116, 0.774);

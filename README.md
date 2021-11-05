@@ -22,7 +22,7 @@ Then I will have recent searched artist saved on the Recent request area.
 * API
 
 ## HTML
-*The main index page to display the basic structure of Music Matcher.
+* The main index page to display the basic structure of Music Matcher.
 
 ## CSS/Bulma
 * Custom and open source styling for Music Matcher which display differnt colors, font-size and display size on different screens.
@@ -54,7 +54,8 @@ Then I will have recent searched artist saved on the Recent request area.
 * We went into problem with CORS and Tokens for APIs.
 * Audio are only available for 30 seconds.
 * Some lyrics are not available due to free resource limitation. Many apis requires a paid subscription.
-* Functions get complicated when we created half of the elements dynamically.
+* Functions get complicated and bugs occur when we created half of the elements dynamically.
+* Bulma CSS has a lot of in-line styling which spent us some time to figure out overwriting the style with !important.
 
 
 ## After thought
