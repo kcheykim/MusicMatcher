@@ -9,7 +9,6 @@ html {
     --secondary-text: #485FC7;
 }
 
-
 body {
     background-color: black;
 }
@@ -33,7 +32,6 @@ header h1 {
 
 .title {
     font-family: 'Nunito Sans', sans-serif;
-    
 }
 
 /* Styling the button appearance */
@@ -47,8 +45,8 @@ header h1 {
 }
 /* Added hover features and make buttons bigger when hovered */
 .button:hover {
-    font-size:x-large;
-    border-color:black;
+    font-size: x-large;
+    border-color: black;
 }
 
 /* Flex and positioned "Search Button" to align center from the above text area */
@@ -71,8 +69,6 @@ header h1 {
     color: white;
 }
 
-
-
 footer {
     color: #1db954;
     padding: 150px 50px;
@@ -94,8 +90,7 @@ footer {
     background-image: linear-gradient(to left, yellow, orange, red);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    
-  }
+}
 
 /* Force font color styles when !important to overwrite in-line styling from Bulma CSS */
 .left-text {
