@@ -2,6 +2,7 @@ let audio = null;
 let artist = document.getElementById('artist-input').value;
 let oldSearch = [];
 let artistName = null;
+
 const options = {
     headers: {
         apikey: 'MDc1YWUxMWUtYjY0NS00ZGI5LTgxNzEtZjRmMWY0NGQ3Nzgx'
@@ -15,23 +16,33 @@ function getArtist() {
     oldSearch.unshift(artist);
     localStorage.setItem("artist", JSON.stringify(oldSearch));
     artist.value = "";
-    let newArtist = document.createElement('button');
-    newArtist.classList.add('btn-results');
-    newArtist.classList.add('button');
-    newArtist.classList.add('is-medium');
-    newArtist.classList.add('mt-1');
-    newArtist.textContent = artist;
-    document.querySelector("#search-results").innerHTML = '';
-
-    loadOldSearch();
     _getArtistID(artist.toLowerCase().replace(' ', '-'));
 };
+
 const _getArtistID = async (search) => {
-    const result = await fetch(`https://api.napster.com/v2.2/artists/${search}`, options);
-    const data = await result.json();
-    document.getElementById('song').textContent = `${data.artists[0].name}`;
-    _getSimilarArtist(data.artists[0].id);
+    try {
+        const result = await fetch(`https://api.napster.com/v2.2/artists/${search}`, options);
+        const data = await result.json();
+        document.getElementById('song').textContent = `${data.artists[0].name}`;
+        _getSimilarArtist(data.artists[0].id);
+        let newArtist = document.createElement('button');
+        newArtist.classList.add('btn-results');
+        newArtist.classList.add('button');
+        newArtist.classList.add('is-medium');
+        newArtist.classList.add('mt-1');
+        newArtist.textContent = artist;
+        document.querySelector("#search-results").innerHTML = '';
+        loadOldSearch();
+    } catch (error) {
+        document.getElementById('song').textContent = 'Invalid Song'
+    }
 };
+
+const _getArtistsImage = async (artist_id) => {
+    const result = await fetch(`https://api.napster.com/v2.2/artists/${artist_id}/images`, options);
+    const data = await result.json();
+    document.getElementById('artist-img').setAttribute('src',`${data.images[0].url}`);
+}
 
 
 const _getSimilarArtist = async (search) => {
@@ -54,6 +65,8 @@ const _getSimilarArtist = async (search) => {
         for (let i = 0; i < savedResults.length; i++) {
             savedResults[i].addEventListener('click', function () {
                 _getTopTracks(savedResults[i].id);
+                    _getArtistsImage(savedResults[i].id);
+                    document.getElementById('artist-img').setAttribute('alt',`${data.artists[i].name} of band`);
             });
         };
     } catch (error) {};
@@ -80,34 +93,11 @@ const _getTopTracks = async (artistID) => {
                 audio = new Audio(data.tracks[i].previewURL);
             });
         };
-    } catch (error) {}
+    } catch (error) {};
 };
 
 let searchEl = document.getElementById('search-artist');
 
-function loadOldSearch() {
-    try {
-        oldSearch = JSON.parse(localStorage.getItem("artist"));
-        for (let i = 0; i < 5; i++) {
-            let searchEl = document.createElement(`button`);
-            searchEl.textContent = `${oldSearch[i]}`;
-            if (oldSearch[i] == undefined) return
-            searchEl.classList.add('btn-results');
-            searchEl.classList.add('button');
-            searchEl.classList.add('is-medium');
-            searchEl.classList.add('mt-1');
-            document.querySelector("#search-results").appendChild(searchEl);
-        };
-        let savedResults = document.querySelectorAll(".btn-results");
-        for (let i = 0; i < savedResults.length; i++) {
-            savedResults[i].addEventListener('click', function () {
-                document.getElementById('artist-input').value = savedResults[i].innerHTML;
-            });
-        };
-    } catch (error) {
-        oldSearch = [];
-    };
-};
 
 function getLyric(artist, song) {
     let lyricEl = document.getElementById('lyric');
@@ -143,17 +133,46 @@ function getLyric(artist, song) {
 
 };
 
+function loadOldSearch() {
+    try {
+        oldSearch = JSON.parse(localStorage.getItem("artist"));
+        for (let i = 0; i < 5; i++) {
+            let searchEl = document.createElement(`button`);
+            searchEl.textContent = `${oldSearch[i]}`;
+            if (oldSearch[i] == undefined) return
+            searchEl.classList.add('btn-results');
+            searchEl.classList.add('button');
+            searchEl.classList.add('is-medium');
+            searchEl.classList.add('mt-1');
+            document.querySelector("#search-results").appendChild(searchEl);
+        };
+        let savedResults = document.querySelectorAll(".btn-results");
+        for (let i = 0; i < savedResults.length; i++) {
+            savedResults[i].addEventListener('click', function () {
+                document.getElementById('artist-input').value = savedResults[i].innerHTML;
+            });
+        };
+    } catch (error) {
+        oldSearch = [];
+    };
+};
+
 function replaceStr(string, unwanted, replace) {
     return string.split(unwanted).join(replace);
 };
 
 function play() {
-    audio.play();
+    try {
+        audio.play();
+    } catch (error) {}
 };
 
 function pause() {
-    audio.pause();
+    try {
+        audio.pause();
+    } catch (error) {}
 };
 
 searchEl.addEventListener('click', getArtist);
 loadOldSearch();
+
