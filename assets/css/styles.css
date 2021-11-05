@@ -73,8 +73,16 @@ footer {
 }
 
 #lyric {
-    padding-left: 10px;
     font-size: 1.2rem;
+    padding: 15px;
+}
+
+#image img {
+    display: table-cell;
+    height: 300px;
+    text-align: center;
+    width: 300px;
+    vertical-align: middle
 }
 
 .rainbow-text {
