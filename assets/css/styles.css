@@ -1,9 +1,18 @@
+html {
+    background-color: black;
+}
+:root {
+    --main-text: rgb(187, 164, 34);
+    --secondary-text: #485FC7;
+}
+
+
 body {
     background-color: black;
 }
 
 header {
-    background-color: rgba(255, 0, 0, 0.315);
+    background-color: black;
     padding-left: 50px;
     padding-right: 50px;
 }
@@ -25,10 +34,16 @@ header h1 {
 
 .button {
     background-color: #1db954;
-    color: white !important;
+    color: black;
+    font-weight: bold;
     font-family: 'Nunito Sans', sans-serif;
     margin: 5px;
     border-color: black;
+}
+
+.button:hover {
+    font-size:x-large;
+    border-color:black;
 }
 
 .searchBtn {
@@ -53,14 +68,12 @@ header h1 {
 
 
 footer {
-    z-index:9999;
-    margin: 0;
     color: #1db954;
-    padding: 50px 50px;
+    padding: 150px 50px;
     padding-bottom:0;
-    background-color: rgba(255, 0, 0, 0.315);
+    
     font-style: italic;
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-shadow: 0 0 20px rgba(71, 3, 116, 0.774);
 }
 
@@ -71,8 +84,16 @@ footer {
 }
 
 .rainbow-text {
-    background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
+    background-image: linear-gradient(to left, yellow, orange, red);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     
   }
+
+.left-text {
+    color: var(--main-text)!important;
+}
+
+.right-text {
+    color: var(--secondary-text)!important;
+}
