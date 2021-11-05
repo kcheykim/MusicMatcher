@@ -45,6 +45,7 @@ const _getArtistsImage = async(artist_id) => {
 
         const result = await fetch(`https://api.napster.com/v2.2/artists/${artist_id}/images`, options);
         const data = await result.json();
+        document.getElementById('artist-img').style.display = 'block';
         document.getElementById('artist-img').setAttribute('src', `${data.images[0].url}`);
     } catch (error) {
         document.getElementById('artist-img').setAttribute('src', ``);
