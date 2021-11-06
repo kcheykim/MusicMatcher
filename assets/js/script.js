@@ -14,12 +14,30 @@ function getArtist() {
     document.getElementById('display-artists').textContent = 'Similar Artists';
     artist = document.getElementById('artist-input').value;
     artistName = artist;
-
     oldSearch.unshift(artist);
-    localStorage.setItem("artist", JSON.stringify(oldSearch));
-    artist.value = "";
+    // localStorage.setItem("artist", JSON.stringify(oldSearch));
+    // artist.value = "";
     _getArtistID(artist.toLowerCase().replace(' ', '-'));
 };
+
+// const _getArtistID = async(search) => {
+//     try {
+//         const result = await fetch(`https://api.napster.com/v2.2/artists/${search}`, options);
+//         const data = await result.json();
+//         document.getElementById('lookup-artist').textContent = `${data.artists[0].name}`;
+//         _getSimilarArtist(data.artists[0].id);
+//         let newArtist = document.createElement('button');
+//         newArtist.classList.add('btn-results');
+//         newArtist.classList.add('button');
+//         newArtist.classList.add('is-medium');
+//         newArtist.classList.add('mt-1');
+//         newArtist.textContent = artist;
+//         document.querySelector("#search-results").innerHTML = '';
+//         loadOldSearch();
+//     } catch (error) {
+//         document.getElementById('look-artist').textContent = 'Invalid Artist';
+//     }
+// };
 
 const _getArtistID = async(search) => {
     try {
@@ -27,6 +45,7 @@ const _getArtistID = async(search) => {
         const data = await result.json();
         document.getElementById('lookup-artist').textContent = `${data.artists[0].name}`;
         _getSimilarArtist(data.artists[0].id);
+        localStorage.setItem(data.artists[0].id, data.artists[0].name);
         let newArtist = document.createElement('button');
         newArtist.classList.add('btn-results');
         newArtist.classList.add('button');
@@ -36,7 +55,9 @@ const _getArtistID = async(search) => {
         document.querySelector("#search-results").innerHTML = '';
         loadOldSearch();
     } catch (error) {
-        document.getElementById('look-artist').textContent = 'Invalid Song';
+        var errorMessage = document.createElement('p');
+        errorMessage.innerHTML = 'Invalid Artist Name';
+        document.getElementById('display-artist').append(errorMessage);
     }
 };
 
@@ -102,23 +123,28 @@ const _getTopTracks = async(artistID) => {
         let savedResults = document.querySelectorAll(".btn-top-tracks");
         for (let i = 0; i < savedResults.length; i++) {
             savedResults[i].addEventListener('click', function() {
+                pause();
                 getLyric(data.tracks[i].artistName, savedResults[i].innerHTML);
                 audio = new Audio(data.tracks[i].previewURL);
+                createPlayer();
             });
         };
     } catch (error) {};
 };
+
+
 
 let searchEl = document.getElementById('search-artist');
 
 
 function getLyric(artist, song) {
     let lyricEl = document.getElementById('lyric');
-    lyricEl.innerHTML = "";
+    lyricEl.innerHTML = '';
     document.getElementById('lyric-title').textContent = '';
-    document.getElementById('lyric-title').textContent += "Lyric: ";
+    document.getElementById('lyric-title').textContent += 'Lyric: ';
     document.getElementById('lyric-title').textContent += song;
-    document.getElementById('lyric').style.cssText += 'height:300px;overflow-y:auto;background-image:linear-gradient(black, green)';
+    document.getElementById('lyric').style.cssText += 'height:300px;overflow-y:auto';
+    document.getElementById('lyric').style.cssText += 'background-image:linear-gradient(black, green)';
 
     let lyricApi = 'https://api.lyrics.ovh/v1/';
     fetch(lyricApi + artist + '/' + song)
@@ -149,13 +175,39 @@ function getLyric(artist, song) {
 
 };
 
+// function loadOldSearch() {
+//     try {
+//         oldSearch = JSON.parse(localStorage.getItem("artist"));
+//         for (let i = 0; i < 5; i++) {
+//             let searchEl = document.createElement(`button`);
+//             searchEl.textContent = `${oldSearch[i]}`;
+//             if (oldSearch[i] == undefined) return
+//             searchEl.classList.add('btn-results');
+//             searchEl.classList.add('button');
+//             searchEl.classList.add('is-medium');
+//             searchEl.classList.add('mt-1');
+//             document.querySelector("#search-results").appendChild(searchEl);
+//         };
+//         let savedResults = document.querySelectorAll(".btn-results");
+//         for (let i = 0; i < savedResults.length; i++) {
+//             savedResults[i].addEventListener('click', function() {
+//                 document.getElementById('artist-input').value = savedResults[i].innerHTML;
+//             });
+//         };
+//     } catch (error) {
+//         oldSearch = [];
+//     };
+// };
+
 function loadOldSearch() {
     try {
-        oldSearch = JSON.parse(localStorage.getItem("artist"));
+
         for (let i = 0; i < 5; i++) {
+
+            var artID = localStorage.key(i);
+            var artVal = localStorage.getItem(artID);
             let searchEl = document.createElement(`button`);
-            searchEl.textContent = `${oldSearch[i]}`;
-            if (oldSearch[i] == undefined) return
+            searchEl.textContent = artVal;
             searchEl.classList.add('btn-results');
             searchEl.classList.add('button');
             searchEl.classList.add('is-medium');
@@ -177,6 +229,32 @@ function replaceStr(string, unwanted, replace) {
     return string.split(unwanted).join(replace);
 };
 
+function createPlayer() {
+    document.getElementById('music-player').innerHTML = '';
+    document.getElementById('music-player').innerHTML += '<button class="play-audio material-icons is-large" onclick="play()">play_circle</button>';
+
+    document.getElementById('music-player').innerHTML += '<button class="pause-audio material-icons is-medium" onclick="pause()">pause_circle</button>';
+    document.getElementById('music-player').classList.add('is-large');
+    fetch('https://g.tenor.com/v1/search?q=music-head-phones-gif&key=SCEYCNJDE0WA&')
+        .then(function(response) {
+            if (response.ok) {
+                response.json().then(function(data) {
+                    var dataGif = data.results;
+                    for (var i = 0; i < dataGif.length; i++) {
+                        if (dataGif[i].id == "5267317") {
+                            var playerImg = document.createElement('div');
+                            var imgUrl = dataGif[i].media[i].mediumgif.url;
+                            document.getElementById('player-image').style.backgroundImage = `url('${imgUrl}')`;
+                            document.getElementById('player-image').style.cssText += 'height:300px';
+                            document.getElementById('player-image').style.cssText += 'width:350px';
+                        }
+                    }
+                });
+            } else {
+                console.log(error);
+            };
+        });
+};
 
 function play() {
     try {

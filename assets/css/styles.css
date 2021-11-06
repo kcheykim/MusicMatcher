@@ -100,7 +100,7 @@ footer {
     display: table-cell;
     height: 300px;
     text-align: center;
-    width: 300px;
+    width: auto;
     vertical-align: middle;
     display: none;
 }
@@ -123,12 +123,4 @@ footer {
 
 .right-text {
     color: var(--secondary-text)!important;
-}
-
-.play-audio {
-    background-color: var(--secondary-text);
-}
-
-.pause-audio {
-    background-color: var(--main-text);
 }
