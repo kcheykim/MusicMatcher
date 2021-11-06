@@ -15,6 +15,7 @@ function getArtist() {
     artist = document.getElementById('artist-input').value;
     artistName = artist;
     oldSearch.unshift(artist);
+    console.log(oldSearch);
     // localStorage.setItem("artist", JSON.stringify(oldSearch));
     // artist.value = "";
     _getArtistID(artist.toLowerCase().replace(' ', '-'));
@@ -52,6 +53,7 @@ const _getArtistID = async(search) => {
         newArtist.classList.add('is-medium');
         newArtist.classList.add('mt-1');
         newArtist.textContent = artist;
+
         document.querySelector("#search-results").innerHTML = '';
         loadOldSearch();
     } catch (error) {
@@ -158,13 +160,11 @@ function getLyric(artist, song) {
                     parseLyric = replaceStr(parseLyric, '\n\n', '|');
                     parseLyric = replaceStr(parseLyric, '\n', '|');
                     const newLyric = parseLyric.split('|');
-
                     for (var i = 0; i < newLyric.length; i++) {
                         var lyrics = document.createElement('p');
                         lyrics.innerHTML = newLyric[i];
                         lyricEl.appendChild(lyrics);
                     }
-
                 });
             } else {
                 var errorMessage = document.createElement('p');
@@ -172,7 +172,6 @@ function getLyric(artist, song) {
                 lyricEl.append(errorMessage);
             };
         });
-
 };
 
 // function loadOldSearch() {
@@ -201,9 +200,9 @@ function getLyric(artist, song) {
 
 function loadOldSearch() {
     try {
-
-        for (let i = 0; i < 5; i++) {
-
+        var currLength = localStorage.length;
+        if (localStorage.length > 10) { currLength = 10; }
+        for (let i = 0; i < currLength; i++) {
             var artID = localStorage.key(i);
             var artVal = localStorage.getItem(artID);
             let searchEl = document.createElement(`button`);
