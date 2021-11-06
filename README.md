@@ -36,7 +36,7 @@ Then I will have recent searched artist saved on the Recent request area.
 * Dynamically generate up to 5 button elements as top 5 tracks of the artist.
 * Store recent search to local storage.
 
-## API Research
+## API Researched
 * Spotify
 * Youtube
 * Shazam
@@ -59,11 +59,11 @@ Then I will have recent searched artist saved on the Recent request area.
 
 
 ## After thought
-In our future project, we may try no to add music streaming feature because there were a lot of issues with tokens, apikeys and cors. We also have an unexpected bulk data returned from lyrics api and we have to create a bunch of replacement string to get rid of the extra syntax comes with the fetch. We tried to make at least half of our elements dynamically instead of directly adding them on html so it looks more special and technical but it took us more time to debug the function but indeed more fancy as well. Last but not least, this project is too small for a group of 5 to work on and distribute duties.
+In our future project, we may try no to add music streaming feature because there were a lot of issues with tokens, apikeys and cors. We also have an unexpected bulk data returned from lyrics api and we have to create a bunch of replacement string to get rid of the extra syntax comes with the fetch. We tried to make at least half of our elements dynamically instead of directly adding them on html so it looks more special and technical but it took us more time to debug the function but indeed more fancy as well. Modifying the CSS makes a lot of conflicts since it was done by 2 person and there is a mix of custom CSS and Bulma default CSS which make flex has to be speficied if any elements are added after. Last but not least, this project is too small for a group of 5 to work on and distribute duties.
 
 
 ## Website
 https://mockcomic.github.io/MusicMatcher
 
 ## Image of Website
-![ScreenShot](https://)
+![ScreenShot](./assets/images/music-matcher.jpg)

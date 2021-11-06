@@ -12,11 +12,7 @@ html {
     --secondary-text: #485FC7;
 }
 
-body {
-    background-color: black;
-}
-
-
+/* Header area styling */
 /* Fixed title from sticking to the left of the page which does not align with the text below */
 
 header {
@@ -24,6 +20,8 @@ header {
     padding-left: 50px;
     padding-right: 50px;
 }
+
+/* Added a shadow effect to make title look special */
 
 header h1 {
     text-shadow: 0 0 20px rgba(136, 127, 127, 0.726);
@@ -37,11 +35,13 @@ header h1 {
     padding-left: 50px;
 }
 
+/* End of header area styling */
+
 .title {
     font-family: 'Nunito Sans', sans-serif;
 }
 
-
+/* Buttons Styling */
 /* Styling the button appearance */
 
 .button {
@@ -69,6 +69,23 @@ header h1 {
     justify-content: center;
 }
 
+/* Flex center for streaming icon area */
+.stream-area {
+    text-align: -webkit-center;
+}
+
+/* Enlarge button icons */
+.play-audio {
+    font-size: 50px;
+}
+
+.pause-audio {
+    font-size: 50px;
+}
+
+/* End of buttons Styling */
+
+
 .rightside {
     background: linear-gradient(#212121, #141414, black);
     color: white;
@@ -83,13 +100,7 @@ header h1 {
     color: white;
 }
 
-footer {
-    color: #1db954;
-    padding: 100px 50px;
-    font-style: italic;
-    font-size: 1.5rem;
-    text-shadow: 0 0 20px rgba(71, 3, 116, 0.774);
-}
+/* Enlarge lyric's font size */
 
 #lyric {
     font-size: 1.2rem;
@@ -106,6 +117,17 @@ footer {
 }
 
 
+/* Spaced out the main tag and footer, centered footer text from bottom border */
+
+footer {
+    color: #1db954;
+    padding: 100px 50px;
+    font-style: italic;
+    font-size: 1.5rem;
+    text-shadow: 0 0 20px rgba(71, 3, 116, 0.774);
+}
+
+/* Font color Styling */
 /* Modified text colors */
 
 .rainbow-text {
@@ -113,7 +135,6 @@ footer {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
 
 /* Force font color styles when !important to overwrite in-line styling from Bulma CSS */
 
@@ -124,3 +145,4 @@ footer {
 .right-text {
     color: var(--secondary-text)!important;
 }
+/* End of font color Styling */
