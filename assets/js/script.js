@@ -49,7 +49,7 @@ const _getArtistsImage = async(artist_id) => { //fetching napster API for artist
 }
 
 const _getSimilarArtist = async(search) => { //fetching napster API for similar artists
-    const result = await fetch(`http://api.napster.com/v2.2/artists/${search}/similar?`, options);
+    const result = await fetch(`https://api.napster.com/v2.2/artists/${search}/similar?`, options);
     const data = await result.json();
 
     document.querySelector("#similar-artist").innerHTML = '';
