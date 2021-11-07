@@ -21,78 +21,78 @@
     </header>
 
 
-    
-        <main>
-            <div class="columns">
-                <div class="column is-3">
-                    <!-- <header class="tile is-parent"> -->
-                    <h1 class="title tile is-child notification leftside">
-                        Music Matcher &REG;
-                    </h1>
-                    <!-- </header> -->
-                    <div class="tile is-parent is-vertical">
-                        <!-- added id 'request-song' for appending song -->
-                        <article class="tile is-child notification leftside" id="request-song">
-                            <h2 class="title left-text" id="search-title">Other Request</h2>
-                            <div class="content" id="search-results"></div>
-                        </article>
-                    </div>
 
-                    <div class="tile is-parent">
-                        <article class="tile is-child notification leftside">
-                            <p class="title left-text" id="search">Search Your Artist</p>
-                            <input class="input is-round is-focused is-normal" type="text" placeholder="e.g. Adele" id="artist-input" />
-                            <div class="searchBtn">
-                                <!-- added id 'search-artist' for enabling addEventListener -->
-                                <button class="button is-medium" id="search-artist"> Search</button>
-                            </div>
-                        </article>
-                    </div>
+    <main>
+        <div class="columns">
+            <div class="column is-3">
+                <!-- <header class="tile is-parent"> -->
+                <h1 class="title tile is-child notification leftside">
+                    Music Matcher &REG;
+                </h1>
+                <!-- </header> -->
+                <div class="tile is-parent is-vertical">
+                    <!-- added id 'request-song' for appending song -->
+                    <article class="tile is-child notification leftside" id="request-song">
+                        <h2 class="title left-text" id="search-title">Other Request</h2>
+                        <div class="content" id="search-results"></div>
+                    </article>
                 </div>
-                <div class="column is-9 rightside">
-                    <div class="tile is-parent">
-                        <article class="tile is-child notification righty">
-                            <!-- added id 'song-info' for appending artist -->
-                            <div class="content" id="artist-info">
-                                <h2 class="title is-2 right-text" id="lookup-artist"></h2>
-                                <p class="subtitle is-4 mt-2 right-text" id="display-artists"></p>
-                                <div id='similar-artist'></div>
-                                <p class="subtitle is-4 mt-3 right-text" id="track-title"></p>
-                                <div id='top-tracks'></div>
-                                <div class="content"></div>
-                            </div>
-                        </article>
-                        <article class="tile is-child notification righty stream-area" id="player">
-                            <!-- added id 'song-info' for appending artist -->
-                            <div class="content " id="player-image"></div>
-                            <div class="content play-audio" id="music-player"></div>
-                        </article>
-                    </div>
-                    <div class="tile is-parent">
-                        <!-- added id 'lyrics-p' for appending lyrics -->
-                        <article class="tile is-child notification righty" id="lyrics-p">
-                            <h2 class="title right-text" id="lyric-title"></h2>
-                            <div class="content" id="lyric"></div>
-                        </article>
-                        <article class="tile is-child notification righty" id="image-p">
-                            <h2 class="title right-text" id="image-title"></h2>
-                            <div class="content" id="image"><img id='artist-img'></div>
-                        </article>
-                    </div>
+
+                <div class="tile is-parent">
+                    <article class="tile is-child notification leftside">
+                        <p class="title left-text" id="search">Search Your Artist</p>
+                        <input class="input is-round is-focused is-normal" type="text" placeholder="e.g. Adele" id="artist-input" />
+                        <div class="searchBtn">
+                            <!-- added id 'search-artist' for enabling addEventListener -->
+                            <button class="button is-medium" id="search-artist"> Search</button>
+                        </div>
+                    </article>
                 </div>
             </div>
-        </main>
-
-        <footer class="columns has-text-centered ">
-            <div class="column is-12 pb-0">
-                <p class="rainbow-text">Music Matcher &copy; 2021</p>
-                <p class="rainbow-text">
-                    Kurtis Hight, Kosal Cheykim, Ching Leung, Adam Menkes, David B Malki
-                </p>
-
+            <div class="column is-9 rightside">
+                <div class="tile is-parent">
+                    <article class="tile is-child notification righty">
+                        <!-- added id 'song-info' for appending artist -->
+                        <div class="content" id="artist-info">
+                            <h2 class="title is-2 right-text" id="lookup-artist"></h2>
+                            <p class="subtitle is-4 mt-2 right-text" id="display-artists"></p>
+                            <div id='similar-artist'></div>
+                            <p class="subtitle is-4 mt-3 right-text" id="track-title"></p>
+                            <div id='top-tracks'></div>
+                            <div class="content"></div>
+                        </div>
+                    </article>
+                    <article class="tile is-child notification righty stream-area" id="player">
+                        <!-- added id 'song-info' for appending artist -->
+                        <div class="content " id="player-image"></div>
+                        <div class="content play-audio" id="music-player"></div>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <!-- added id 'lyrics-p' for appending lyrics -->
+                    <article class="tile is-child notification righty" id="lyrics-p">
+                        <h2 class="title right-text" id="lyric-title"></h2>
+                        <div class="content" id="lyric"></div>
+                    </article>
+                    <article class="tile is-child notification righty" id="image-p">
+                        <h2 class="title right-text" id="image-title"></h2>
+                        <div class="content" id="image"><img id='artist-img'></div>
+                    </article>
+                </div>
             </div>
-        </footer>
-        <script src="./assets/js/script.js"></script>
-    </body>
+        </div>
+    </main>
+
+    <footer class="columns has-text-centered ">
+        <div class="column is-12 pb-0">
+            <p class="rainbow-text">Music Matcher &copy; 2021</p>
+            <p class="rainbow-text">
+                Kurtis Hight, Kosal Cheykim, Ching Leung, Adam Menkes, David B Malki
+            </p>
+
+        </div>
+    </footer>
+    <script src="./assets/js/script.js"></script>
+</body>
 
 </html>

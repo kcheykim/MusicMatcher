@@ -9,38 +9,16 @@ const options = {
     }
 };
 
-function getArtist() {
+function getArtist() { //getting the artist from user's input
     document.getElementById('lookup-artist').textContent = 'Artist';
     document.getElementById('display-artists').textContent = 'Similar Artists';
     artist = document.getElementById('artist-input').value;
     artistName = artist;
     oldSearch.unshift(artist);
-    console.log(oldSearch);
-    // localStorage.setItem("artist", JSON.stringify(oldSearch));
-    // artist.value = "";
     _getArtistID(artist.toLowerCase().replace(' ', '-'));
 };
 
-// const _getArtistID = async(search) => {
-//     try {
-//         const result = await fetch(`https://api.napster.com/v2.2/artists/${search}`, options);
-//         const data = await result.json();
-//         document.getElementById('lookup-artist').textContent = `${data.artists[0].name}`;
-//         _getSimilarArtist(data.artists[0].id);
-//         let newArtist = document.createElement('button');
-//         newArtist.classList.add('btn-results');
-//         newArtist.classList.add('button');
-//         newArtist.classList.add('is-medium');
-//         newArtist.classList.add('mt-1');
-//         newArtist.textContent = artist;
-//         document.querySelector("#search-results").innerHTML = '';
-//         loadOldSearch();
-//     } catch (error) {
-//         document.getElementById('look-artist').textContent = 'Invalid Artist';
-//     }
-// };
-
-const _getArtistID = async(search) => {
+const _getArtistID = async(search) => { //fetching napster API for artistID
     try {
         const result = await fetch(`https://api.napster.com/v2.2/artists/${search}`, options);
         const data = await result.json();
@@ -56,16 +34,11 @@ const _getArtistID = async(search) => {
 
         document.querySelector("#search-results").innerHTML = '';
         loadOldSearch();
-    } catch (error) {
-        var errorMessage = document.createElement('p');
-        errorMessage.innerHTML = 'Invalid Artist Name';
-        document.getElementById('display-artist').append(errorMessage);
-    }
+    } catch (error) {}
 };
 
-const _getArtistsImage = async(artist_id) => {
+const _getArtistsImage = async(artist_id) => { //fetching napster API for artist image
     try {
-
         const result = await fetch(`https://api.napster.com/v2.2/artists/${artist_id}/images`, options);
         const data = await result.json();
         document.getElementById('artist-img').style.display = 'block';
@@ -75,8 +48,7 @@ const _getArtistsImage = async(artist_id) => {
     }
 }
 
-
-const _getSimilarArtist = async(search) => {
+const _getSimilarArtist = async(search) => { //fetching napster API for similar artists
     const result = await fetch(`http://api.napster.com/v2.2/artists/${search}/similar?`, options);
     const data = await result.json();
 
@@ -106,7 +78,7 @@ const _getSimilarArtist = async(search) => {
     } catch (error) {};
 };
 
-const _getTopTracks = async(artistID) => {
+const _getTopTracks = async(artistID) => { //fetching napster API for selected artist top five tracks
     document.getElementById('track-title').textContent = 'Top Five Tracks';
     const result = await fetch(`https://api.napster.com/v2.2/artists/${artistID}/tracks/top?limit=5`, options);
     const data = await result.json();
@@ -134,12 +106,9 @@ const _getTopTracks = async(artistID) => {
     } catch (error) {};
 };
 
-
-
 let searchEl = document.getElementById('search-artist');
 
-
-function getLyric(artist, song) {
+function getLyric(artist, song) { //fetching LyricsOVH API lyric for selected track
     let lyricEl = document.getElementById('lyric');
     lyricEl.innerHTML = '';
     document.getElementById('lyric-title').textContent = '';
@@ -167,41 +136,17 @@ function getLyric(artist, song) {
                     }
                 });
             } else {
-                var errorMessage = document.createElement('p');
-                errorMessage.innerHTML = 'Sorry - Lyric is unavailable.';
-                lyricEl.append(errorMessage);
+                var lyricMsg = document.createElement('p');
+                lyricMsg.innerHTML = 'Sorry - Lyric is unavailable.';
+                lyricEl.append(lyricMsg);
             };
         });
 };
 
-// function loadOldSearch() {
-//     try {
-//         oldSearch = JSON.parse(localStorage.getItem("artist"));
-//         for (let i = 0; i < 5; i++) {
-//             let searchEl = document.createElement(`button`);
-//             searchEl.textContent = `${oldSearch[i]}`;
-//             if (oldSearch[i] == undefined) return
-//             searchEl.classList.add('btn-results');
-//             searchEl.classList.add('button');
-//             searchEl.classList.add('is-medium');
-//             searchEl.classList.add('mt-1');
-//             document.querySelector("#search-results").appendChild(searchEl);
-//         };
-//         let savedResults = document.querySelectorAll(".btn-results");
-//         for (let i = 0; i < savedResults.length; i++) {
-//             savedResults[i].addEventListener('click', function() {
-//                 document.getElementById('artist-input').value = savedResults[i].innerHTML;
-//             });
-//         };
-//     } catch (error) {
-//         oldSearch = [];
-//     };
-// };
-
-function loadOldSearch() {
+function loadOldSearch() { //loading five requested artists (stored in localStorage)
     try {
         var currLength = localStorage.length;
-        if (localStorage.length > 10) { currLength = 10; }
+        if (localStorage.length > 5) { currLength = 5; }
         for (let i = 0; i < currLength; i++) {
             var artID = localStorage.key(i);
             var artVal = localStorage.getItem(artID);
@@ -228,12 +173,12 @@ function replaceStr(string, unwanted, replace) {
     return string.split(unwanted).join(replace);
 };
 
-function createPlayer() {
-    document.getElementById('music-player').innerHTML = '';
-    document.getElementById('music-player').innerHTML += '<button class="play-audio material-icons is-large" onclick="play()">play_circle</button>';
-
-    document.getElementById('music-player').innerHTML += '<button class="pause-audio material-icons is-medium" onclick="pause()">pause_circle</button>';
-    document.getElementById('music-player').classList.add('is-large');
+function createPlayer() { //fetching tenor API to get an image that create a music player
+    let playerEl = document.getElementById('music-player');
+    playerEl.innerHTML = '';
+    playerEl.innerHTML += '<button class="play-audio material-icons is-large" onclick="play()">play_circle</button>';
+    playerEl.innerHTML += '<button class="pause-audio material-icons is-medium" onclick="pause()">pause_circle</button>';
+    playerEl.classList.add('is-large');
     fetch('https://g.tenor.com/v1/search?q=music-head-phones-gif&key=SCEYCNJDE0WA&')
         .then(function(response) {
             if (response.ok) {
@@ -250,18 +195,20 @@ function createPlayer() {
                     }
                 });
             } else {
-                console.log(error);
+                var imageMsg = document.createElement('p');
+                imageMsg.innerHTML = 'Sorry - Image is unavailable.';
+                playerEl.append(imageMsg);
             };
         });
 };
 
-function play() {
+function play() { //play the stream track
     try {
         audio.play();
     } catch (error) {}
 };
 
-function pause() {
+function pause() { //pause the stream track
     try {
         audio.pause();
     } catch (error) {}
