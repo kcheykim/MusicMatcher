@@ -1,5 +1,5 @@
 # MusicMatcher
-Music Matcher is a web application that allows user to search for a music artist that generates five similar artists. Once, a similar artist is selected, the page will generate five top tracks of the selected artist. The lyric of that track will appear along with a player to play a snippet of that selected track. There is a play and pause button for user to choose when they want to play or stop the music. Music Matcher will also generate five other requested artists on the right side. Enjoy finding similar artists that you have not discovered them yet. Least but last, sing along...
+Music Matcher is a web application that allows user to search for a music artist that generates five similar artists. Once, a similar artist is selected, the page will generate five top tracks of the selected artist. The lyric of that track will appear along with a player to play a snippet of that selected track. There is a play and pause button for user to choose when they want to play or stop the music. Music Matcher will also generate five other requested artists on the right side. Enjoy finding similar artists that you have not discovered them yet. Last but not least, sing along...
 
 ## User Story
 As a user, when I load the page.
