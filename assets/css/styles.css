@@ -162,12 +162,14 @@ footer {
   
   /* Modal Content */
   .modal-content {
-    background-color: #fefefe;
+    background-color: #1db954;
     margin: 20% auto;
     padding: 20px;
-    border: 5px solid #888;
+    border: 10px solid #888;
     width: 40%; 
     color: black;
+    font-size: 1.5rem;
+    justify-content: center;
   }
   
   /* The Close Button */
