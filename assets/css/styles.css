@@ -1,17 +1,90 @@
-body {
+/* make background color fully black and fixed extra white area on empty paddings */
+
+html {
     background-color: black;
 }
 
+
+/* Created global variables for colors*/
+
+:root {
+    --main-text: rgb(187, 164, 34);
+    --secondary-text: #485FC7;
+}
+
+/* Header area styling */
+/* Fixed title from sticking to the left of the page which does not align with the text below */
+
+header {
+    background-color: black;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+/* Added a shadow effect to make title look special */
+
+header h1 {
+    text-shadow: 0 0 20px rgba(136, 127, 127, 0.726);
+}
+
+
+/* Style for text in header, but not affecting the text in same class 'title' to avoid conflict from previous coder*/
+
+.app-name {
+    font-size: 6rem;
+    padding-left: 50px;
+}
+
+/* End of header area styling */
+
 .title {
     font-family: 'Nunito Sans', sans-serif;
-    color: white;
 }
+
+/* Buttons Styling */
+/* Styling the button appearance */
 
 .button {
     background-color: #1db954;
-    color: white !important;
+    color: black;
+    font-weight: bold;
     font-family: 'Nunito Sans', sans-serif;
+    margin: 5px;
+    border-color: black;
 }
+
+
+/* Added hover features and make buttons bigger when hovered */
+
+.button:hover {
+    font-size: 20.5px;
+    border-color: black;
+}
+
+
+/* Flex and positioned "Search Button" to align center from the above text area */
+
+.searchBtn {
+    display: flex;
+    justify-content: center;
+}
+
+/* Flex center for streaming icon area */
+.stream-area {
+    text-align: -webkit-center;
+}
+
+/* Enlarge button icons */
+.play-audio {
+    font-size: 50px;
+}
+
+.pause-audio {
+    font-size: 50px;
+}
+
+/* End of buttons Styling */
+
 
 .rightside {
     background: linear-gradient(#212121, #141414, black);
@@ -27,9 +100,52 @@ body {
     color: white;
 }
 
+/* Enlarge lyric's font size */
+
+#lyric {
+    font-size: 1.2rem;
+    padding: 15px;
+}
+
+#image img {
+    display: table-cell;
+    height: 300px;
+    text-align: center;
+    width: auto;
+    vertical-align: middle;
+    display: none;
+}
+
+
+/* Spaced out the main tag and footer, centered footer text from bottom border */
+
 footer {
     color: #1db954;
+    padding: 100px 50px;
+    font-style: italic;
+    font-size: 1.5rem;
+    text-shadow: 0 0 20px rgba(71, 3, 116, 0.774);
 }
+
+/* Font color Styling */
+/* Modified text colors */
+
+.rainbow-text {
+    background-image: linear-gradient(to left, yellow, orange, red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Force font color styles when !important to overwrite in-line styling from Bulma CSS */
+
+.left-text {
+    color: var(--main-text)!important;
+}
+
+.right-text {
+    color: var(--secondary-text)!important;
+}
+/* End of font color Styling */
 
 /* The Modal (background) */
 .modal {

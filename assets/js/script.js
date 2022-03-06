@@ -214,18 +214,12 @@ function pause() { //pause the stream track
     } catch (error) {}
 };
 
-
 let modal = document.getElementById('msgModal');
-//searchEl
 
 let span = document. getElementsByClassName('closeModal')[0];
 function getModal() {
     modal.style.display = 'block';
 }
-
-// searchEl.onclick = function() {
-//     modal.style.display = 'none';
-// }
 
 // clicks anywhere outside of the modal, close it
 window.onclick = function(event) {

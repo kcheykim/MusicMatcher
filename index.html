@@ -38,7 +38,8 @@
                 <div class="tile is-parent">
                     <article class="tile is-child notification leftside">
                         <p class="title left-text" id="search">Search Your Artist</p>
-                        <input class="input is-round is-focused is-normal" type="text" placeholder="e.g. Adele" id="artist-input" />
+                        <input class="input is-round is-focused is-normal" type="text" placeholder="e.g. Adele"
+                            id="artist-input" />
                         <div class="searchBtn">
                             <!-- added id 'search-artist' for enabling addEventListener -->
                             <button class="button is-medium" id="search-artist"> Search</button>
@@ -75,49 +76,49 @@
                         <h2 class="title right-text" id="image-title"></h2>
                         <div class="content" id="image"><img id='artist-img'></div>
                     </article>
-                            <!-- The Modal -->
-                            <div id="msgModal" class="modal">
-                                <!-- Modal Content -->
-                                <div class="modal-content">
-                                    <span class="closeModal">&times;</span>
-                                    <p> Welcome to Music Matcher! <br />
-                                        This app will display five similiar artists to your input. <br />
-                                        Please select one of the similar artist. <br />
-                                        Then select one of their track. <br />
-                                        Enjoy the music and the lyric!
-                                    </p>
-                                </div>
-                            </div>
 
-                        </article>
-                    </div>
-                </div>
-                <div class="column is-9 rightside">
-                    <div class="tile is-parent">
-                        <article class="tile is-child notification righty">
-                            <!-- added id 'song-info' for appending artist -->
-                            <div class="content" id="song-info">
-                                <h2 class="title" id="song">Song Title</h2>
-                                <p class="subtitle">Artist Info</p>
-                                <div id='similar-artist'></div>
-                                <div id='top-tracks'></div>
-                                <p class="subtitle">
-                                    Placeholder will be streaming of the song....
-                                </p>
-                                <div class="content"></div>
-                            </div>
-                        </article>
-                    </div>
 
-                    <div class="tile is-parent">
-                        <!-- added id 'lyrics-p' for appending lyrics -->
-                        <article class="tile is-child notification righty" id="lyrics-p">
-                            <h2 class="title" id="lyric-title">Lyric</h2>
-                            <div class="content" id="lyric"></div>
-                        </article>
-                    </div>
->>>>>>> Stashed changes
+                    </article>
                 </div>
+            </div>
+            <div class="column is-9 rightside">
+                <div class="tile is-parent">
+                    <article class="tile is-child notification righty">
+                        <!-- added id 'song-info' for appending artist -->
+                        <div class="content" id="song-info">
+                            <h2 class="title" id="song">Song Title</h2>
+                            <p class="subtitle">Artist Info</p>
+                            <div id='similar-artist'></div>
+                            <div id='top-tracks'></div>
+                            <p class="subtitle">
+                                Placeholder will be streaming of the song....
+                            </p>
+                            <div class="content"></div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="tile is-parent">
+                    <!-- added id 'lyrics-p' for appending lyrics -->
+                    <article class="tile is-child notification righty" id="lyrics-p">
+                        <h2 class="title" id="lyric-title">Lyric</h2>
+                        <div class="content" id="lyric"></div>
+                    </article>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- The Modal -->
+        <div id="msgModal" class="modal">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <span class="closeModal">&times;</span>
+                <p> Welcome to Music Matcher! <br />
+                    This app will display five similiar artists to your input. <br />
+                    Please select one of the artist. <br />
+                    Then select one of their track. <br />
+                    Enjoy the music and the lyric!
+                </p>
             </div>
         </div>
     </main>
@@ -128,7 +129,6 @@
             <p class="rainbow-text">
                 Kurtis Hight, Kosal Cheykim, Ching Leung, Adam Menkes, David B Malki
             </p>
-
         </div>
     </footer>
     <script src="./assets/js/script.js"></script>
