@@ -2,6 +2,7 @@ let audio = null;
 let artist = document.getElementById('artist-input').value;
 let oldSearch = [];
 let artistName = null;
+let marker = 0;
 
 const options = {
     headers: {
@@ -176,7 +177,7 @@ function replaceStr(string, unwanted, replace) {
 function createPlayer() { //fetching tenor API to get an image that create a music player
     let playerEl = document.getElementById('music-player');
     playerEl.innerHTML = '';
-    playerEl.innerHTML += '<button class="play-audio material-icons is-large" onclick="play()">play_circle</button>';
+    playerEl.innerHTML += '<button class="play-audio material-icons is-large" onclick="getModal()">play_circle</button>';
     playerEl.innerHTML += '<button class="pause-audio material-icons is-medium" onclick="pause()">pause_circle</button>';
     playerEl.classList.add('is-large');
     fetch('https://g.tenor.com/v1/search?q=music-head-phones-gif&key=SCEYCNJDE0WA&')
@@ -225,10 +226,10 @@ function getModal() {
 window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = 'none';
-        getArtist();
+        play();
     }
   }
 
-searchEl.addEventListener('click', getModal);
+searchEl.addEventListener('click', getArtist);
 loadOldSearch()
 
