@@ -232,4 +232,3 @@ window.onclick = function(event) {
 
 searchEl.addEventListener('click', getArtist);
 loadOldSearch()
-
